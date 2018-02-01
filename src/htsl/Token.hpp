@@ -5,7 +5,7 @@
 namespace htsl {
 	
 	enum class TokenType {
-		// ( ) = , * / - +
+		// ( ) = , * / - + { } # . : [ ] 
 		TOKEN,
 
 		// if while for switch case
