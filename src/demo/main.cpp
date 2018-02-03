@@ -6,7 +6,7 @@
 
 #include <chrono>
 
-#include <Tokenizer.hpp>
+#include <tokenizer/Tokenizer.hpp>
 
 int main(int argc, char* argv[]) {
 	
