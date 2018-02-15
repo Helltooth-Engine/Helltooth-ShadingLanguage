@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <functional>
+#include <sstream>
 
 #include "TokenFormat.hpp"
 
@@ -11,27 +12,37 @@ namespace htsl {
 
 	class Tokenizer {
 	private:
-		std::string m_Data;
+		std::vector<std::string> m_Lines;
 
 		std::vector<TokenFormat*> m_Formats;
 
-		int m_CurrentToken = 0;
+		int m_CurrentLine = 0;
 
-		std::vector<Token> m_Tokens;
+		bool reachedEnd = false;
 
 	public:
-		Tokenizer(std::string data);
+		Tokenizer(const std::string& data);
 		~Tokenizer();
 
-		Token GetNextToken() { return m_Tokens[m_CurrentToken++]; }
-
-		bool HasNextToken() { return m_CurrentToken < m_Tokens.size(); }
-
+		Token GetNextToken();
+		bool HasNextToken() { return !reachedEnd; }
 
 	private:
-		inline void RemoveStartingSpaces() {
-			while (m_Data[0] == ' ' || m_Data[0] == '\n' || m_Data[0] == '\t')
-				m_Data = m_Data.substr(1);
+		inline void RemoveStartingSpaces(std::string& data) {
+			while (data[0] == ' ' || data[0] == '\n' || data[0] == '\t')
+				data = data.substr(1);
+		}
+
+		inline std::vector<std::string> Split(const std::string& data, char delimiter) {
+			std::vector<std::string> strings;
+			std::istringstream stream(data);
+			
+			std::string current;
+			while (std::getline(stream, current, delimiter)) {
+				strings.push_back(current);
+			}
+
+			return strings;
 		}
 	};
 

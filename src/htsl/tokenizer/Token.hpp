@@ -5,6 +5,9 @@
 namespace htsl {
 	
 	enum class TokenType {
+		// Signifyies the end of a whole file
+		EMPTY,
+
 		// ( ) = , * / - + { } # . : [ ] 
 		TOKEN,
 
@@ -32,5 +35,7 @@ namespace htsl {
 		inline TokenType GetType() { return m_Type; }
 
 		inline std::string GetData() { return m_Data; }
+
+		bool operator==(std::string other) { return m_Data == other; }
 	};
 }
