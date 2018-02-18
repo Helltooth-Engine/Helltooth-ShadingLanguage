@@ -5,6 +5,9 @@
 namespace htsl {
 	
 	enum class TokenType {
+		// When token is not initialized
+		UNKNOWN,
+
 		// Signifyies the end of a whole file
 		EMPTY,
 
@@ -32,10 +35,10 @@ namespace htsl {
 	public:
 		Token(TokenType type, std::string data) : m_Type(type), m_Data(data) {}
 		
-		inline TokenType GetType() { return m_Type; }
+		inline TokenType GetType() const { return m_Type; }
 
-		inline std::string GetData() { return m_Data; }
+		inline std::string GetData() const { return m_Data; }
 
-		bool operator==(std::string other) { return m_Data == other; }
+		bool operator==(std::string other) const { return m_Data == other; }
 	};
 }
