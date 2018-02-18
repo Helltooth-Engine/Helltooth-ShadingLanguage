@@ -21,12 +21,15 @@ namespace htsl {
 			if (!(versionNumber.GetData() == "#")) {
 				if (versionNumber.GetType() != TokenType::INT_LITERAL)
 					printf("[HTSL] Version can't be anything else than an int literal");
-				result.append(versionNumber.GetData());
+				result.append(versionNumber.GetData() + " ");
+
 				// Test if the next thing after it is a string literal
 				std::string line = tokenizer.GetNextLines(1);
 
-				if (line == " core") {
-					result.append(line);
+				// Check if next token can be part of the version
+				Token nextToken = tokenizer.PeekNextToken();
+				if (nextToken.GetType() == TokenType::IDENTIFIER) {
+					result.append(nextToken.GetData());
 					// Skip it
 					tokenizer.GetNextToken();
 				}

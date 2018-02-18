@@ -24,10 +24,11 @@ namespace htsl {
 				// Test if the next thing after it is a string literal
 				std::string line = tokenizer.GetNextLines(1);
 				
-				if (line == " core") {
-					// Skip it
+				// Check if next token can be part of the version
+				Token nextToken = tokenizer.PeekNextToken();
+				if (nextToken.GetType() == TokenType::IDENTIFIER)
 					tokenizer.GetNextToken();
-				}
+				
 			}
 #endif
 		}
