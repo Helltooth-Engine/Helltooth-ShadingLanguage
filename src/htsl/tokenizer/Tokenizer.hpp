@@ -14,7 +14,7 @@ namespace htsl {
 	private:
 		std::vector<std::string> m_Lines;
 
-		std::vector<TokenFormat*> m_Formats;
+		std::vector<TokenFormat> m_Formats;
 
 		int m_CurrentLine = 0;
 
@@ -26,6 +26,13 @@ namespace htsl {
 
 		Token GetNextToken();
 		bool HasNextToken() { return !reachedEnd; }
+
+		inline std::string GetNextLines(int lines) {
+			std::string result = "";
+			for (int i = 0; i < lines; i++)
+				result.append(m_Lines[m_CurrentLine + i]);
+			return result;
+		}
 
 	private:
 		inline void RemoveStartingSpaces(std::string& data) {

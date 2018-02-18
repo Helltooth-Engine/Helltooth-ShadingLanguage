@@ -5,32 +5,29 @@ namespace htsl {
 
 	Tokenizer::Tokenizer(const std::string& data) {
 		// Identifier
-		m_Formats.push_back(new TokenFormat(TokenType::IDENTIFIER, std::regex("^([a-zA-Z][a-zA-Z0-9\\-\\_]{0,30})")));
+		m_Formats.push_back(TokenFormat(TokenType::IDENTIFIER, std::regex("^([a-zA-Z][a-zA-Z0-9\\-\\_]{0,30})")));
 		
 		// Float literal
-		m_Formats.push_back(new TokenFormat(TokenType::FLOAT_LITERAL, std::regex("^([0-9]*.[0-9]*[fF]?)")));
+		m_Formats.push_back(TokenFormat(TokenType::FLOAT_LITERAL, std::regex("^([0-9]*.[0-9]*[fF]?)")));
 		
 		// Int literal
-		m_Formats.push_back(new TokenFormat(TokenType::INT_LITERAL, std::regex("^([0-9]{1,16})")));
+		m_Formats.push_back(TokenFormat(TokenType::INT_LITERAL, std::regex("^([0-9]{1,16})")));
 
 		
 		// Tokens
 		for (auto token : std::vector<const char*>{ "#", "\\(", "\\)", "=", ",", "\\*", "/", "-", "\\+", "\\{", "\\}", "\\.", ";", "\\[", "\\]" }) {
-			m_Formats.push_back(new TokenFormat(TokenType::TOKEN, std::regex(std::string("^(") + token + ")")));
+			m_Formats.push_back(TokenFormat(TokenType::TOKEN, std::regex(std::string("^(") + token + ")")));
 		}
 
 		// Keywords
 		for (const char* keyword : std::vector<const char*>{ "if", "as", "else", "while", "do", "for", "switch", "case", "default", "layout" }) {
-			m_Formats.push_back(new TokenFormat(TokenType::KEYWORD, std::regex(std::string("^(") + keyword + ")")));
+			m_Formats.push_back(TokenFormat(TokenType::KEYWORD, std::regex(std::string("^(") + keyword + ")")));
 		}
 
 		m_Lines = Split(data, '\n');
 	}
 
-	Tokenizer::~Tokenizer() {
-		for (auto tokenFormat : m_Formats)
-			delete tokenFormat;
-	}
+	Tokenizer::~Tokenizer() { }
 
 	Token Tokenizer::GetNextToken() {
 		// Start by removing spaces
@@ -49,12 +46,12 @@ namespace htsl {
 		std::smatch match;
 		bool found = false;
 		while (m_CurrentLine < m_Lines.size() && result.GetType() == TokenType::EMPTY) {
-			for (TokenFormat* format : m_Formats) {
-				std::regex_search(m_Lines[m_CurrentLine], match, format->GetPattern());
+			for (TokenFormat format : m_Formats) {
+				std::regex_search(m_Lines[m_CurrentLine], match, format.GetPattern());
 				if (match.size()) {
 					std::ssub_match subMatch = match[0];
 					std::string base = subMatch.str();
-					result = Token(format->GetType(), base);
+					result = Token(format.GetType(), base);
 					m_Lines[m_CurrentLine] = m_Lines[m_CurrentLine].substr(base.size());
 					found = true;
 					break;

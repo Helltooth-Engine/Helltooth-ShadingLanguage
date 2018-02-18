@@ -10,7 +10,7 @@ namespace htsl {
 	private:
 		TokenType m_Type;
 		std::regex m_Pattern;
-
+		
 	public:
 		inline TokenFormat(TokenType type, std::regex pattern) : m_Type(type), m_Pattern(pattern) {}
 
