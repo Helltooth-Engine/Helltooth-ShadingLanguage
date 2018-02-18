@@ -19,12 +19,14 @@ namespace htsl {
 		int m_CurrentLine = 0;
 
 		bool reachedEnd = false;
+		Token lastToken;
 
 	public:
 		Tokenizer(const std::string& data);
 		~Tokenizer();
 
 		Token GetNextToken();
+		Token PeekNextToken();
 		bool HasNextToken() { return !reachedEnd; }
 
 		inline std::string GetNextLines(int lines) {

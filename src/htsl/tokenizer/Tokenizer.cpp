@@ -3,7 +3,8 @@
 
 namespace htsl {
 
-	Tokenizer::Tokenizer(const std::string& data) {
+	Tokenizer::Tokenizer(const std::string& data)
+		: lastToken(TokenType::UNKNOWN, "") {
 		// Identifier
 		m_Formats.push_back(TokenFormat(TokenType::IDENTIFIER, std::regex("^([a-zA-Z][a-zA-Z0-9\\-\\_]{0,30})")));
 		
@@ -30,6 +31,11 @@ namespace htsl {
 	Tokenizer::~Tokenizer() { }
 
 	Token Tokenizer::GetNextToken() {
+		if (lastToken.GetType() != TokenType::UNKNOWN) {
+			lastToken = Token(TokenType::UNKNOWN, "");
+			return lastToken;
+		}
+
 		// Start by removing spaces
 		RemoveStartingSpaces(m_Lines[m_CurrentLine]);
 
@@ -66,5 +72,43 @@ namespace htsl {
 		return result;
 	}
 
+	Token Tokenizer::PeekNextToken() {
+		// Start by removing spaces
+		RemoveStartingSpaces(m_Lines[m_CurrentLine]);
+
+		// While the currentline is empty
+		while (m_CurrentLine + 1 < m_Lines.size() && m_Lines[m_CurrentLine] == "")
+			RemoveStartingSpaces(m_Lines[++m_CurrentLine]);
+
+		if (m_CurrentLine == m_Lines.size()) {
+			reachedEnd = true;
+			return Token(TokenType::EMPTY, "");
+		}
+
+		Token result(TokenType::EMPTY, "");
+		std::smatch match;
+		bool found = false;
+		while (m_CurrentLine < m_Lines.size() && result.GetType() == TokenType::EMPTY) {
+			for (TokenFormat format : m_Formats) {
+				std::regex_search(m_Lines[m_CurrentLine], match, format.GetPattern());
+				if (match.size()) {
+					std::ssub_match subMatch = match[0];
+					std::string base = subMatch.str();
+					result = Token(format.GetType(), base);
+					m_Lines[m_CurrentLine] = m_Lines[m_CurrentLine].substr(base.size());
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+				m_CurrentLine++;
+		}
+		if (result.GetType() == TokenType::EMPTY)
+			reachedEnd = true;
+
+		lastToken = result;
+
+		return result;
+	}
 
 }
