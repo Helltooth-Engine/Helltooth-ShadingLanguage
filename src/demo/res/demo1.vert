@@ -1,4 +1,4 @@
-# htshader vertex
+#htshader vertex
 #htversion 300 core
 
 layout {
