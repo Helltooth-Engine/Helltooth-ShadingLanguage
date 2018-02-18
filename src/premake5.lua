@@ -64,7 +64,7 @@ project ("Helltooth-ShadingLanguage")
 
 	location "../Solution/Helltooth-ShadingLanguage/"
 	includedirs {
-		"$(SolutionDir)..src/htsl/"
+		"$(SolutionDir)../src/htsl/"
 	}
 
 	setProjectOutputDirectories() 
