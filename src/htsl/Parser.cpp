@@ -30,6 +30,7 @@ namespace htsl {
 	}
 
 	std::string Parser::ParseShader(Tokenizer& tokenizer) {
+		LayoutParser::Init();
 		std::string firstLine = tokenizer.GetNextLines(1);
 		ShaderType type;
 
@@ -70,12 +71,22 @@ namespace htsl {
 				result += MacroParser::Parse(tokenizer, currentLine, type);
 			}
 			else if (currentToken.GetData() == "layout") { // Layout
-				result += LayoutParser::Parse(tokenizer, currentLine, type) + "\n";
+				result += LayoutParser::Get()->Parse(tokenizer, currentLine, type) + "\n";
 			}
 			//result += "\n";
 
 		}
 
+		switch (type) {
+		case ShaderType::VERTEX:
+			m_VertexShaderAttributes = LayoutParser::Get()->GetInputLayout();
+			break;
+		case ShaderType::FRAGMENT:
+			m_FragmentShaderAttributes = LayoutParser::Get()->GetInputLayout();
+			break;
+		}
+
+		LayoutParser::End();
 		return result;
 	}
 }

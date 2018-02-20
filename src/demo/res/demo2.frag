@@ -14,5 +14,5 @@ uniform {
 };
 
 main_block {
-	out.color = sample2D(textures[0], uv);
+	Output.color = sample2D(textures[0], uv);
 }
