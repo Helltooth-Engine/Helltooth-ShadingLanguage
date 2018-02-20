@@ -6,13 +6,11 @@
 
 #include <chrono>
 
-#include <tokenizer/Tokenizer.hpp>
+#include <Parser.hpp>
 
 int main(int argc, char* argv[]) {
-	
 
-
-	std::ifstream f("res/demo1.vert");
+	std::ifstream f("res/demo2.frag");
 	
 	f.seekg(0, f.end);
 	int length = f.tellg();
@@ -27,15 +25,15 @@ int main(int argc, char* argv[]) {
 
 	std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
 
-	htsl::Tokenizer tokenizer(result);
-
-	while (tokenizer.HasNextToken()) {
-		std::cout << tokenizer.GetNextToken().GetData() << std::endl;
-	}
+	htsl::Parser::Init();
+	htsl::Parser::Get()->Set("MAX_VERSION", "300 core");
+	auto shaders =  htsl::Parser::Get()->Parse(result);
+	for (int i = 0; i < shaders.size(); i++)
+		std::cout << shaders[i] << std::endl;
 
 	std::chrono::duration<double> time = std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - t1);
 	
-	std::cout << "It took " << time.count() << " to tokenize the entire string." << std::endl;
+	std::cout << "It took " << time.count() << " to parse shader(s)." << std::endl;
 	std::cin.get();
 
 	return 0;

@@ -15,7 +15,6 @@ namespace htsl {
 
 		if (macroName.GetData() == "htversion") {
 			// Next type after the htversion is expected to be an int literal *MUST*
-#ifdef HT_DEBUG
 			Token versionNumber = tokenizer.GetNextToken();
 			if (!(versionNumber.GetData() == "#")) {
 				if (versionNumber.GetType() != TokenType::INT_LITERAL)
@@ -30,10 +29,16 @@ namespace htsl {
 					tokenizer.GetNextToken();
 				
 			}
-#endif
+			else {
+				// Nothing since version in hlsl doesn't matter
+			}
 		}
 		else {
-			// Test if it's part of the macro group
+			for (auto macroValue : s_MacroValues) {
+				if (macroName.GetData() == macroValue.first) {
+					result.append(macroValue.second);
+				}
+			}
 		}
 		
 		return result;

@@ -17,7 +17,14 @@ namespace htsl {
 		if (openbrace.GetData() != "{") {
 			tokenizer.Log("[HTSL] Unexpected token '%s', expected {\n", openbrace.GetData());
 		}
-		result += "in ";
+		switch (type) {
+		case ShaderType::VERTEX:
+			result += "in ";
+			break;
+		case ShaderType::FRAGMENT:
+			result += "out ";
+			break;
+		}
 
 		std::string layoutData = " {\n";
 

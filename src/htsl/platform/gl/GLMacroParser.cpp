@@ -16,13 +16,20 @@ namespace htsl {
 		if (macroName.GetData() == "htversion") {
 			// Next type after the htversion is expected to be an int literal *MUST*
 			result.append("#version ");
-#ifdef HT_DEBUG
 			Token versionNumber = tokenizer.GetNextToken();
-			if (!(versionNumber.GetData() == "#")) {
-				if (versionNumber.GetType() != TokenType::INT_LITERAL)
+			if ((versionNumber.GetData() == "#")) {
+				result += MacroParser::Parse(tokenizer, tokenizer.GetNextLines(1), type);
+			}
+			else {
+#ifdef HT_DEBUG
+				if (versionNumber.GetType() != TokenType::INT_LITERAL) {
 					tokenizer.Log("[HTSL] Version can't be anything else than an int literal");
-				result.append(versionNumber.GetData() + " ");
+					return "";
+				}
+#endif // HT_DEBUG
 
+				result.append(versionNumber.GetData() + " ");
+			
 				// Test if the next thing after it is a string literal
 				std::string line = tokenizer.GetNextLines(1);
 
@@ -34,10 +41,14 @@ namespace htsl {
 					tokenizer.GetNextToken();
 				}
 			}
-#endif
+			result += '\n';
 		}
 		else {
-			// Test if it's part of the macro group
+			for (auto macroValue : s_MacroValues) {
+				if (macroName.GetData() == macroValue.first) {
+					result.append(macroValue.second);
+				}
+			}
 		}
 
 		return result;
