@@ -1,9 +1,9 @@
 #htshader fragment
-#version #MAX_VERSION
+#htversion #MAX_VERSION
 
 layout {
 	vec4 color;
-};
+} as Output;
 
 in {
 	vec2 uv;
@@ -14,5 +14,5 @@ uniform {
 };
 
 main_block {
-	color = sample2D(textures[0], uv);
+	out.color = sample2D(textures[0], uv);
 }

@@ -16,7 +16,7 @@ uniforms {
 
 out {
 	vec2 uv;
-};
+} as out;
 
 main_block {
 
