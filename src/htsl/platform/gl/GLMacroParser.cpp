@@ -20,7 +20,7 @@ namespace htsl {
 			Token versionNumber = tokenizer.GetNextToken();
 			if (!(versionNumber.GetData() == "#")) {
 				if (versionNumber.GetType() != TokenType::INT_LITERAL)
-					printf("[HTSL] Version can't be anything else than an int literal");
+					tokenizer.Log("[HTSL] Version can't be anything else than an int literal");
 				result.append(versionNumber.GetData() + " ");
 
 				// Test if the next thing after it is a string literal
