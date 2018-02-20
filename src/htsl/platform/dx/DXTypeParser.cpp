@@ -16,9 +16,8 @@ namespace htsl {
 				parseResult = "float3x3";
 			else if (token.GetData() == "mat4")
 				parseResult = "float4x4";
-
-
-			parseResult = token.GetData();
+			else
+				parseResult = token.GetData();
 			return true;
 		}
 		return false;
