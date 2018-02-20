@@ -36,6 +36,12 @@ namespace htsl {
 			return result;
 		}
 
+		template<typename First, typename ... Args>
+		void Log(First arg, Args... message) const {
+			printf(arg, std::forward<Args>(message)...);
+			printf(" at line %d\n", m_CurrentLine);
+		}
+
 	private:
 		inline void RemoveStartingSpaces(std::string& data) {
 			while (data[0] == ' ' || data[0] == '\n' || data[0] == '\t')

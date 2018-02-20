@@ -32,8 +32,9 @@ namespace htsl {
 
 	Token Tokenizer::GetNextToken() {
 		if (lastToken.GetType() != TokenType::UNKNOWN) {
+			Token copy = lastToken;
 			lastToken = Token(TokenType::UNKNOWN, "");
-			return lastToken;
+			return copy;
 		}
 
 		// Start by removing spaces
