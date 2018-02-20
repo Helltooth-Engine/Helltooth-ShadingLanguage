@@ -10,23 +10,29 @@ namespace htsl {
 
 	class LayoutParser {
 	private:
-		static std::vector<std::string> s_LayoutAttribNames;
+		std::vector<std::string> s_LayoutAttribNames;
+
+		static LayoutParser* s_Instance;
 
 	public:
-		static std::string Parse(Tokenizer& tokenizer, const std::string& currentLine, const ShaderType& type);
+		std::string Parse(Tokenizer& tokenizer, const std::string& currentLine, const ShaderType& type);
 
-		static void AddAttribNames(Tokenizer& tokenizer) {
+		void AddAttribNames(Tokenizer& tokenizer) {
 			Token token = tokenizer.GetNextToken();
 			if (token.GetType() != TokenType::IDENTIFIER)
 				tokenizer.Log("[HTSL] Unexpected token type, expected identifier as layout attribute");
 			s_LayoutAttribNames.push_back(token.GetData());
 		}
 
-		static std::string layoutName;
-		static std::string startName;
-		static std::vector<std::string> attributes;
+		std::string layoutName;
+		std::string startName;
+		std::vector<std::string> attributes;
 
-		inline static std::vector<std::string> GetInputLayout() { s_LayoutAttribNames; }
+		inline std::vector<std::string> GetInputLayout() { return s_LayoutAttribNames; }
+
+		inline static void Init() { if (!s_Instance) s_Instance = new LayoutParser(); }
+		inline static void End() { if (s_Instance) { delete s_Instance; s_Instance = nullptr; } }
+		inline static LayoutParser* Get() { return s_Instance; }
 	};
 
 }

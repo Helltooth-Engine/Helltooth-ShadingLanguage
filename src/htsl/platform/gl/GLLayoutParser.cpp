@@ -4,10 +4,7 @@
 
 namespace htsl {
 
-	std::string LayoutParser::layoutName = "";
-	std::string LayoutParser::startName = "";
-	std::vector<std::string> LayoutParser::attributes;
-	std::vector<std::string> LayoutParser::s_LayoutAttribNames;
+	LayoutParser* LayoutParser::s_Instance = nullptr;
 
 	std::string LayoutParser::Parse(Tokenizer& tokenizer, const std::string& currentLine, const ShaderType& type) {
 		std::string result;

@@ -4,10 +4,7 @@
 
 namespace htsl {
 
-	std::string LayoutParser::layoutName = "";
-	std::string LayoutParser::startName = "";
-	std::vector<std::string> LayoutParser::attributes;
-	std::vector<std::string> LayoutParser::s_LayoutAttribNames;
+	LayoutParser* LayoutParser::s_Instance = nullptr;
 
 	std::string LayoutParser::Parse(Tokenizer& tokenizer, const std::string& currentLine, const ShaderType& type) {
 		std::string result;
@@ -40,9 +37,10 @@ namespace htsl {
 #endif // HT_DEBUG
 			layoutData += parseResult + " ";
 
-			// Next token expected is the layout attribute if it's a vertex shader otherwise there's nothing like that
+			// The Next token expected may be either as or ; because it's a choice to use this
 
-			if (type == ShaderType::VERTEX) {
+			Token nextToken = tokenizer.PeekNextToken();
+			if (nextToken.GetData() != ";") {
 				AddAttribNames(tokenizer);
 
 				Token as = tokenizer.GetNextToken();
@@ -53,7 +51,6 @@ namespace htsl {
 				}
 #endif // HT_DEBUG
 			}
-				
 			// This is the actual name of the attribute that's supposed to be used
 			Token attributeName = tokenizer.GetNextToken();
 			attributes.push_back(attributeName.GetData());
