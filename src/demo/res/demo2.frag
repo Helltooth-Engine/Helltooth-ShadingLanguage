@@ -7,7 +7,7 @@ layout {
 
 in {
 	vec2 uv;
-}
+};
 
 uniform {
 	Texture2D textures[2];

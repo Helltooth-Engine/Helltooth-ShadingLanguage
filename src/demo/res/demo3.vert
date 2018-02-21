@@ -13,6 +13,11 @@ uniforms {
 	mat4 modelMatrix;
 };
 
+struct Test {
+	mat4 shit;
+	vec4 otherShit;
+	vec3 moreShit;
+};
 
 out {
 	vec2 uv;
