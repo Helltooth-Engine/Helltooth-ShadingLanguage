@@ -11,7 +11,8 @@ namespace htsl {
 		// First token is already "layout"
 
 		Token openbrace = tokenizer.PeekNextToken();
-		tokenizer.LogIf(openbrace, "{");
+		if(!tokenizer.LogIf(openbrace, "{"))
+			return "";
 
 		// You need to add the layout location for each one of the ints
 
@@ -47,23 +48,26 @@ namespace htsl {
 #endif // HT_DEBUG
 			
 			// Next token expected is the layout attribute if it's a vertex shader otherwise there's nothing like that
+			Token nameorAttribName = tokenizer.GetNextToken();
 
-			if (type == ShaderType::VERTEX) {
-				AddAttribNames(tokenizer);
+			Token nextToken = tokenizer.PeekNextToken();
+			if (nextToken.GetData() != ";") {
+				AddAttribNames(nameorAttribName, tokenizer);
 
 				Token as = tokenizer.GetNextToken();
-				tokenizer.LogIf(as, "as");
+				if (!tokenizer.LogIf(as, "as"))
+					return "";
+
 			}
 
-			// This is the actual name of the attribute that's supposed to be used
-			Token attributeName = tokenizer.GetNextToken();
-			attributes.push_back(attributeName.GetData());
+			attributes.push_back(nameorAttribName.GetData());
 
 			// Expected semicolon
 			Token semiColon = tokenizer.GetNextToken();
-			tokenizer.LogIf(semiColon, ";");
-
-			layoutData.push_back({ layout + std::to_string(currentTokenNumber) + layout2 + parseResult + " " , attributeName.GetData() + semiColon.GetData() + "\n" });
+			if(!tokenizer.LogIf(semiColon, ";"))
+				return "";
+			
+			layoutData.push_back({ layout + std::to_string(currentTokenNumber) + layout2 + parseResult + " " , attributes[currentTokenNumber] + semiColon.GetData() + "\n" });
 
 			closebrace = tokenizer.PeekNextToken();
 			currentTokenNumber++;
@@ -93,7 +97,8 @@ namespace htsl {
 		}
 
 		Token colon = tokenizer.GetNextToken();
-		tokenizer.LogIf(colon, ";");
+		if(!tokenizer.LogIf(colon, ";"))
+			return "";
 
 
 		for (std::pair<std::string, std::string> layout : layoutData) {

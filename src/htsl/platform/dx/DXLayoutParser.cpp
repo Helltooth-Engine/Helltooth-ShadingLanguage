@@ -11,7 +11,8 @@ namespace htsl {
 		// First token is already "layout"
 
 		Token openbrace = tokenizer.PeekNextToken();
-		tokenizer.LogIf(openbrace, "{");
+		if(!tokenizer.LogIf(openbrace, "{"))
+			return "";
 		
 		result += "struct ";
 
@@ -38,25 +39,30 @@ namespace htsl {
 			layoutData += parseResult + " ";
 
 			// The Next token expected may be either as or ; because it's a choice to use this
+			Token nameorAttribName = tokenizer.GetNextToken();
 
 			Token nextToken = tokenizer.PeekNextToken();
 			if (nextToken.GetData() != ";") {
-				AddAttribNames(tokenizer);
+				AddAttribNames(nameorAttribName, tokenizer);
 
 				Token as = tokenizer.GetNextToken();
-				tokenizer.LogIf(as, "as");
-			}
-			// This is the actual name of the attribute that's supposed to be used
-			Token attributeName = tokenizer.GetNextToken();
-			attributes.push_back(attributeName.GetData());
+				if (!tokenizer.LogIf(as, "as"))
+					return "";
 
-			layoutData += attributeName.GetData();
+			}
+
+			attributes.push_back(nameorAttribName.GetData());
+
+			layoutData += nameorAttribName.GetData();
+
+			s_LayoutAttribNames.push_back(std::string("SV_TARGET") + std::to_string(currentAttrib));
 
 			layoutData += " : " + s_LayoutAttribNames[currentAttrib++];
 
 			// Expected semicolon
 			Token semiColon = tokenizer.GetNextToken();
-			tokenizer.LogIf(semiColon, ";");
+			if(!tokenizer.LogIf(semiColon, ";"))
+				return "";
 			
 			layoutData += semiColon.GetData() + "\n";
 			
@@ -89,7 +95,8 @@ namespace htsl {
 
 		Token colon = tokenizer.GetNextToken();
 		layoutData += ";";
-		tokenizer.LogIf(colon, ";");
+		if(!tokenizer.LogIf(colon, ";"))
+			return "";
 
 		result += layoutName + layoutData;
 		return result;
