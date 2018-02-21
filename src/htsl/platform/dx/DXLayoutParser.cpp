@@ -11,12 +11,12 @@ namespace htsl {
 		// First token is already "layout"
 
 		Token openbrace = tokenizer.PeekNextToken();
-		if (openbrace.GetData() != "{") {
-			tokenizer.Log("[HTSL] Unexpected token '%s', expected {\n", openbrace.GetData());
-		}
+		tokenizer.LogIf(openbrace, "{");
+		
 		result += "struct ";
 
 		std::string layoutData = " {\n";
+		int currentAttrib = 0;
 
 		Token closebrace = tokenizer.PeekNextToken();
 		while (closebrace.GetData() != "}") {
@@ -29,7 +29,7 @@ namespace htsl {
 			std::string parseResult;
 #ifdef HT_DEBUG
 			if (!TypeParser::Parse(typeToken, parseResult)) {
-				tokenizer.Log("[HTSL] Unexpected token '%s'", typeToken.GetData());
+				tokenizer.Log("[HTSL] Unexpected token '%s'", typeToken.GetData().c_str());
 				return "";
 			}
 #else 
@@ -44,12 +44,7 @@ namespace htsl {
 				AddAttribNames(tokenizer);
 
 				Token as = tokenizer.GetNextToken();
-#ifdef HT_DEBUG
-				if (as.GetData() != "as") {
-					tokenizer.Log("[HTSL] Unexpected token '%s', expected 'as'", as.GetData());
-					return "";
-				}
-#endif // HT_DEBUG
+				tokenizer.LogIf(as, "as");
 			}
 			// This is the actual name of the attribute that's supposed to be used
 			Token attributeName = tokenizer.GetNextToken();
@@ -57,15 +52,14 @@ namespace htsl {
 
 			layoutData += attributeName.GetData();
 
+			layoutData += " : " + s_LayoutAttribNames[currentAttrib++];
+
 			// Expected semicolon
 			Token semiColon = tokenizer.GetNextToken();
+			tokenizer.LogIf(semiColon, ";");
+			
 			layoutData += semiColon.GetData() + "\n";
-#ifdef HT_DEBUG
-			if (semiColon.GetData() != ";") {
-				tokenizer.Log("[HTSL] Unexpected token '%s', expected 'as'");
-				return "";
-			}
-#endif // HT_DEBUG
+			
 			closebrace = tokenizer.PeekNextToken();
 		}
 
@@ -79,7 +73,7 @@ namespace htsl {
 			Token nameToken = tokenizer.GetNextToken();
 			startName = nameToken.GetData();
 			layoutName = startName; // so no modifying needs to happen
-			
+			hasName = true;
 		}
 		else {
 			switch (type) {
@@ -95,12 +89,7 @@ namespace htsl {
 
 		Token colon = tokenizer.GetNextToken();
 		layoutData += ";";
-#ifdef HT_DEBUG
-		if (!(colon.GetData() == ";")) {
-			tokenizer.Log("[HTSL] Unexpected token '%s', expected ';'", colon.GetData());
-			return "";
-		}
-#endif // HT_DEBUG
+		tokenizer.LogIf(colon, ";");
 
 		result += layoutName + layoutData;
 		return result;

@@ -1,6 +1,7 @@
 #ifdef HT_DIRECTX
 
 #include "parser/TypeParser.hpp"
+#include "parser/LayoutParser.hpp"
 
 namespace htsl {
 
@@ -16,8 +17,17 @@ namespace htsl {
 				parseResult = "float3x3";
 			else if (token.GetData() == "mat4")
 				parseResult = "float4x4";
-			else
+			else {
+				if(!LayoutParser::Get()->hasName)
+					for (auto layoutName : LayoutParser::Get()->attributes)
+						if (token.GetData() == layoutName) {
+							parseResult = LayoutParser::Get()->layoutName + "." + token.GetData();
+							return true;
+						}
+
 				parseResult = token.GetData();
+
+			}
 			return true;
 		}
 		return false;

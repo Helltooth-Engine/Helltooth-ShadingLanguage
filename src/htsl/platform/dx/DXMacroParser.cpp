@@ -18,7 +18,7 @@ namespace htsl {
 			Token versionNumber = tokenizer.GetNextToken();
 			if (!(versionNumber.GetData() == "#")) {
 				if (versionNumber.GetType() != TokenType::INT_LITERAL)
-					tokenizer.Log("[HTSL] Version can't be anything else than an int literal, '%s'", versionNumber.GetData());
+					tokenizer.Log("[HTSL] Version can't be anything else than an int literal, '%s'", versionNumber.GetData().c_str());
 				// just skip it since this is directx
 				// Test if the next thing after it is a string literal
 				std::string line = tokenizer.GetNextLines(1);
