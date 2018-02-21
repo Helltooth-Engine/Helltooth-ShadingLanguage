@@ -85,6 +85,9 @@ namespace htsl {
 #endif // HT_DEBUG
 				result += parseResult;
 			}
+			else if (currentToken.GetData() == "struct") {
+				result += StructParser::Parse(currentToken, tokenizer);
+			}
 			//result += "\n";
 
 		}

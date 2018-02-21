@@ -10,6 +10,7 @@
 #include "parser/ShaderTypes.hpp"
 #include "parser/LayoutParser.hpp"
 #include "parser/InOutParser.hpp"
+#include "parser/StructParser.hpp"
 
 namespace htsl {
 
