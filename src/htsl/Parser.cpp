@@ -31,6 +31,7 @@ namespace htsl {
 
 	std::string Parser::ParseShader(Tokenizer& tokenizer) {
 		LayoutParser::Init();
+		InOutParser::Init();
 		std::string firstLine = tokenizer.GetNextLines(1);
 		ShaderType type;
 
@@ -73,6 +74,17 @@ namespace htsl {
 			else if (currentToken.GetData() == "layout") { // Layout
 				result += LayoutParser::Get()->Parse(tokenizer, currentLine, type) + "\n";
 			}
+			else if (currentToken.GetData() == "in" || currentToken.GetData() == "out") { // In out structs
+				std::string parseResult;
+#ifdef HT_DEBUG
+				if (!InOutParser::Get()->Parse(currentToken, tokenizer, parseResult, type)) {
+					tokenizer.Log("[HTSL] 'in' and 'out' are reserved keywords and should not be used for something else");
+				}
+#else
+				InOutParser::Get()->Parse(currentToken, tokenizer, parseResult, type);
+#endif // HT_DEBUG
+				result += parseResult;
+			}
 			//result += "\n";
 
 		}
@@ -86,6 +98,7 @@ namespace htsl {
 			break;
 		}
 
+		InOutParser::End();
 		LayoutParser::End();
 		return result;
 	}

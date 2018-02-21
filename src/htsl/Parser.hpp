@@ -9,6 +9,7 @@
 #include "parser/MacroParser.hpp"
 #include "parser/ShaderTypes.hpp"
 #include "parser/LayoutParser.hpp"
+#include "parser/InOutParser.hpp"
 
 namespace htsl {
 
