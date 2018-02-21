@@ -9,7 +9,6 @@ namespace htsl {
 		// token is either in or out, tokenizer doesn't contain this token
 		
 		bool isIn = false;
-		std::string name;
 
 		if (token.GetData() == "in") {
 			name = "In ";
@@ -49,8 +48,7 @@ namespace htsl {
 			Token attrib = tokenizer.GetNextToken();
 			result += attrib.GetData();
 
-			if (isIn)  m_InAttribNames.push_back(attrib.GetData());
-			else m_OutAttribNames.push_back(attrib.GetData());
+			attribNames.push_back(attrib.GetData());
 
 			Token semiColon = tokenizer.GetNextToken();
 			tokenizer.LogIf(semiColon, ";");
@@ -69,6 +67,13 @@ namespace htsl {
 
 			Token nameToken = tokenizer.GetNextToken();
 			name = nameToken.GetData();
+			hasName = true;
+		}
+		else {
+			if (token.GetData() == "out")
+				name = "Out";
+			else if (token.GetData() == "in")
+				name = "In";
 		}
 
 		// Try again and this time it should TOTALLY be a semicolon

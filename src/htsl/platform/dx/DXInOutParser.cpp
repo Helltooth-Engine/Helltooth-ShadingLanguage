@@ -14,14 +14,11 @@ namespace htsl {
 
 		bool out = false;
 
-		std::string name;
-
 		std::string data = " {\n";
 
 		if (token.GetData() == "out") {
 			// This is where I should add the position
 			data += "\tfloat4 position : SV_POSITION;\n";
-			m_OutAttribNames.push_back("SV_POSITION");
 			out = true;
 		}
 
@@ -51,8 +48,7 @@ namespace htsl {
 
 			data += " : " + uppername;
 
-			if (out) m_OutAttribNames.push_back(uppername);
-			else m_InAttribNames.push_back(uppername);
+			attribNames.push_back(name.GetData());
 
 			Token closeColon = tokenizer.GetNextToken();
 			tokenizer.LogIf(closeColon, ";");
@@ -69,7 +65,15 @@ namespace htsl {
 
 			Token structName = tokenizer.GetNextToken();
 			name = structName.GetData();
+			hasName = true;
 		}
+		else {
+			if (token.GetData() == "out")
+				name = "Out";
+			else if (token.GetData() == "in")
+				name = "In";
+		}
+
 		Token semiColon = tokenizer.GetNextToken();
 		tokenizer.LogIf(semiColon, ";");
 

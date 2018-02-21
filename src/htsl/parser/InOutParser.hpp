@@ -9,12 +9,14 @@ namespace htsl {
 	
 	class InOutParser {
 	private:
-		std::vector<std::string> m_InAttribNames;
-		std::vector<std::string> m_OutAttribNames;
-
 		static InOutParser* s_Instance;
 
 	public:
+		std::vector<std::string> attribNames;
+		std::string name;
+
+		bool hasName = false;
+
 		bool Parse(const Token& token, Tokenizer& tokenizer, std::string& result, const ShaderType& type);
 
 		inline static void Init() { if (!s_Instance) s_Instance = new InOutParser(); }
