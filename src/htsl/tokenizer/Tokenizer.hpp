@@ -45,7 +45,7 @@ namespace htsl {
 		bool LogIf(const Token& token, const std::string& expectedToken) {
 #ifdef HT_DEBUG
 			if (token.GetData() != expectedToken) {
-				Log("[HTSL] Unexpected token '%s', expected '%s'", token.GetData(), expectedToken);
+				Log("[HTSL] Unexpected token '%s', expected '%s'", token.GetData().c_str(), expectedToken.c_str());
 				return false;
 			}
 #endif
