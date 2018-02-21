@@ -13,6 +13,14 @@ namespace htsl {
 						parseResult = LayoutParser::Get()->layoutName + "." + token.GetData();
 						return true;
 					}
+
+			if (!InOutParser::Get()->hasName)
+				for (auto inOutName : InOutParser::Get()->attribNames)
+					if (token.GetData() == inOutName) {
+						parseResult = InOutParser::Get()->name + "." + token.GetData();
+						return true;
+					}
+
 			parseResult = token.GetData();
 			return true;
 		}
