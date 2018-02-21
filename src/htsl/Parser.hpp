@@ -34,7 +34,6 @@ namespace htsl {
 		inline static void End() { if (s_Instance) { delete s_Instance; s_Instance = nullptr; } }
 		inline static Parser* Get() { return s_Instance; }
 
-
 		inline std::vector<std::string> GetVertexInputLayout() { return m_VertexShaderAttributes; }
 		inline std::vector<std::string> GetFragmentInputLayout() { return m_FragmentShaderAttributes; }
 
