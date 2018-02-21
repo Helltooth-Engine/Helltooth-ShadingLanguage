@@ -6,7 +6,7 @@
 
 namespace htsl {
 
-	bool TypeParser::Parse(const Token& token, std::string& parseResult) {
+	bool TypeParser::Parse(const Token& token, std::string& parseResult, bool mainBlock) {
 		if (token.GetType() == TokenType::IDENTIFIER) {
 			if (token.GetData() == "vec2")
 				parseResult = "float2";
@@ -18,7 +18,7 @@ namespace htsl {
 				parseResult = "float3x3";
 			else if (token.GetData() == "mat4")
 				parseResult = "float4x4";
-			else {
+			else if(mainBlock) {
 				if(!LayoutParser::Get()->hasName)
 					for (auto layoutName : LayoutParser::Get()->attributes)
 						if (token.GetData() == layoutName) {
@@ -36,6 +36,9 @@ namespace htsl {
 
 				parseResult = token.GetData();
 
+			}
+			else {
+				parseResult = token.GetData();
 			}
 			return true;
 		}

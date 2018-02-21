@@ -6,7 +6,7 @@ namespace htsl {
 
 	class TypeParser {
 	public:
-		static bool Parse(const Token& token, std::string& parseResult);
+		static bool Parse(const Token& token, std::string& parseResult, bool mainBlock = false);
 	};
 
 
