@@ -42,6 +42,16 @@ namespace htsl {
 			printf(" at line %d\n", m_CurrentLine);
 		}
 
+		bool LogIf(const Token& token, const std::string& expectedToken) {
+#ifdef HT_DEBUG
+			if (token.GetData() != expectedToken) {
+				Log("[HTSL] Unexpected token '%s', expected '%s'", token.GetData(), expectedToken);
+				return false;
+			}
+#endif
+			return true;
+		}
+
 	private:
 		inline void RemoveStartingSpaces(std::string& data) {
 			while (data[0] == ' ' || data[0] == '\n' || data[0] == '\t')
