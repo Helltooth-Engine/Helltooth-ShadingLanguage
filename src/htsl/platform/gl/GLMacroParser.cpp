@@ -41,7 +41,7 @@ namespace htsl {
 					tokenizer.GetNextToken();
 				}
 			}
-			result += '\n';
+			result += "\n\n";
 		}
 		else {
 			for (auto macroValue : s_MacroValues) {

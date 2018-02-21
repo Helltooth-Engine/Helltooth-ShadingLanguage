@@ -11,23 +11,26 @@ namespace htsl {
 		// First token is already "layout"
 
 		Token openbrace = tokenizer.PeekNextToken();
-		if (openbrace.GetData() != "{") {
-			tokenizer.Log("[HTSL] Unexpected token '%s', expected {\n", openbrace.GetData());
-		}
+		tokenizer.LogIf(openbrace, "{");
+
+		// You need to add the layout location for each one of the ints
+
+		std::string layout = "layout (location = ";
+		std::string layout2 = ") ";
 		switch (type) {
 		case ShaderType::VERTEX:
-			result += "in ";
+			layout2 += "in ";
 			break;
 		case ShaderType::FRAGMENT:
-			result += "out ";
+			layout2 += "out ";
 			break;
 		}
 
-		std::string layoutData = " {\n";
+		std::vector<std::pair<std::string, std::string>> layoutData;
 
+		int currentTokenNumber = 0;
 		Token closebrace = tokenizer.PeekNextToken();
 		while (closebrace.GetData() != "}") {
-			layoutData += "\t";
 
 			// First thing we parse is the actual type which has to be parsed by the TypeParser
 
@@ -36,48 +39,37 @@ namespace htsl {
 			std::string parseResult;
 #ifdef HT_DEBUG
 			if (!TypeParser::Parse(typeToken, parseResult)) {
-				tokenizer.Log("[HTSL] Unexpected token '%s'", typeToken.GetData());
+				tokenizer.Log("[HTSL] Unexpected token '%s'", typeToken.GetData().c_str());
 				return "";
 			}
 #else 
 			TypeParser::Parse(typeToken, parseResult);
 #endif // HT_DEBUG
-			layoutData += parseResult + " ";
-
+			
 			// Next token expected is the layout attribute if it's a vertex shader otherwise there's nothing like that
 
 			if (type == ShaderType::VERTEX) {
 				AddAttribNames(tokenizer);
 
 				Token as = tokenizer.GetNextToken();
-#ifdef HT_DEBUG
-				if (as.GetData() != "as") {
-					tokenizer.Log("[HTSL] Unexpected token '%s', expected 'as'", as.GetData());
-					return "";
-				}
-#endif // HT_DEBUG
+				tokenizer.LogIf(as, "as");
 			}
 
 			// This is the actual name of the attribute that's supposed to be used
 			Token attributeName = tokenizer.GetNextToken();
 			attributes.push_back(attributeName.GetData());
 
-			layoutData += attributeName.GetData();
-
 			// Expected semicolon
 			Token semiColon = tokenizer.GetNextToken();
-			layoutData += semiColon.GetData() + "\n";
-#ifdef HT_DEBUG
-			if (semiColon.GetData() != ";") {
-				tokenizer.Log("[HTSL] Unexpected token '%s', expected 'as'");
-				return "";
-			}
-#endif // HT_DEBUG
+			tokenizer.LogIf(semiColon, ";");
+
+			layoutData.push_back({ layout + std::to_string(currentTokenNumber) + layout2 + parseResult + " " , attributeName.GetData() + semiColon.GetData() + "\n" });
+
 			closebrace = tokenizer.PeekNextToken();
+			currentTokenNumber++;
 		}
 
 		tokenizer.GetNextToken(); // Close brace
-		layoutData += "}";
 
 		Token endColon = tokenizer.PeekNextToken();
 		if (endColon.GetData() == "as") {
@@ -86,7 +78,7 @@ namespace htsl {
 			Token nameToken = tokenizer.GetNextToken();
 			startName = nameToken.GetData();
 			layoutName = startName; // so no modifying needs to happen
-
+			hasName = true;
 		}
 		else {
 			switch (type) {
@@ -101,15 +93,13 @@ namespace htsl {
 		}
 
 		Token colon = tokenizer.GetNextToken();
-		layoutData += ";";
-#ifdef HT_DEBUG
-		if (!(colon.GetData() == ";")) {
-			tokenizer.Log("[HTSL] Unexpected token '%s', expected ';'", colon.GetData());
-			return "";
-		}
-#endif // HT_DEBUG
+		tokenizer.LogIf(colon, ";");
 
-		result += layoutName + layoutData;
+
+		for (std::pair<std::string, std::string> layout : layoutData) {
+			result += layout.first + layoutName + layout.second;
+		}
+
 		return result;
 	}
 
