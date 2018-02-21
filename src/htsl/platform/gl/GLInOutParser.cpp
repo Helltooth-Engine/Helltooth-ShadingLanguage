@@ -51,7 +51,9 @@ namespace htsl {
 			attribNames.push_back(attrib.GetData());
 
 			Token semiColon = tokenizer.GetNextToken();
-			tokenizer.LogIf(semiColon, ";");
+			if(!tokenizer.LogIf(semiColon, ";"))
+				return "";
+
 			result += ";\n";
 
 			closeBrace = tokenizer.GetNextToken();
@@ -63,7 +65,8 @@ namespace htsl {
 		if (semiColon.GetData() != ";") {
 			// the keyword is as
 			Token as = tokenizer.GetNextToken();
-			tokenizer.LogIf(as, "as");
+			if(!tokenizer.LogIf(as, "as"))
+				return "";
 
 			Token nameToken = tokenizer.GetNextToken();
 			name = nameToken.GetData();
@@ -78,7 +81,8 @@ namespace htsl {
 
 		// Try again and this time it should TOTALLY be a semicolon
 		semiColon = tokenizer.GetNextToken();
-		tokenizer.LogIf(semiColon, ";");
+		if(!tokenizer.LogIf(semiColon, ";"))
+			return "";
 		
 		result = token.GetData() + " DATA " + result + " " + name + ";" + "\n";
 

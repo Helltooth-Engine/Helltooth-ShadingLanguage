@@ -23,7 +23,8 @@ namespace htsl {
 		}
 
 		Token openbrace = tokenizer.GetNextToken();
-		tokenizer.LogIf(openbrace, "{");
+		if(!tokenizer.LogIf(openbrace, "{"))
+			return "";
 		
 		Token closebrace = tokenizer.GetNextToken();
 
@@ -51,7 +52,9 @@ namespace htsl {
 			attribNames.push_back(name.GetData());
 
 			Token closeColon = tokenizer.GetNextToken();
-			tokenizer.LogIf(closeColon, ";");
+			if(!tokenizer.LogIf(closeColon, ";"))
+				return "";
+			
 			data += ";\n";
 
 			closebrace = tokenizer.GetNextToken();
@@ -75,7 +78,8 @@ namespace htsl {
 		}
 
 		Token semiColon = tokenizer.GetNextToken();
-		tokenizer.LogIf(semiColon, ";");
+		if(!tokenizer.LogIf(semiColon, ";"))
+			return "";
 
 		result += name + data + ";\n";
 
