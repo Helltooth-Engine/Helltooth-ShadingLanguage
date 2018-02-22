@@ -57,8 +57,11 @@ namespace htsl {
 				Token as = tokenizer.GetNextToken();
 				if (!tokenizer.LogIf(as, "as"))
 					return "";
-
+				Token attribName = tokenizer.GetNextToken();
+				attributes.push_back(attribName.GetData());
 			}
+			else
+				attributes.push_back(nameorAttribName.GetData());
 
 			attributes.push_back(nameorAttribName.GetData());
 

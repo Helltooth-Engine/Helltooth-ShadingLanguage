@@ -49,9 +49,10 @@ namespace htsl {
 				if (!tokenizer.LogIf(as, "as"))
 					return "";
 
-			}
-
-			attributes.push_back(nameorAttribName.GetData());
+				Token attribName = tokenizer.GetNextToken();
+				attributes.push_back(attribName.GetData());
+			} else
+				attributes.push_back(nameorAttribName.GetData());
 
 			layoutData += nameorAttribName.GetData();
 
