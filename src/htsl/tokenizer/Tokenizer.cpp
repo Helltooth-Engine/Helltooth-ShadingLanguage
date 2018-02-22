@@ -53,7 +53,7 @@ namespace htsl {
 		std::smatch match;
 		bool found = false;
 		while (m_CurrentLine < m_Lines.size() && result.GetType() == TokenType::EMPTY) {
-			if (m_Lines[m_CurrentLine] == "")
+			if (m_Lines[m_CurrentLine] == "" && m_CurrentLine + 1 < m_Lines.size())
 				m_CurrentLine++;
 
 			for (TokenFormat format : m_Formats) {

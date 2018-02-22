@@ -39,7 +39,7 @@ namespace htsl {
 		template<typename First, typename ... Args>
 		void Log(First arg, Args... message) const {
 			printf(arg, std::forward<Args>(message)...);
-			printf(" at line %d\n", m_CurrentLine);
+			printf(" at line %d\n", m_CurrentLine + 1);
 		}
 
 		bool LogIf(const Token& token, const std::string& expectedToken) {
