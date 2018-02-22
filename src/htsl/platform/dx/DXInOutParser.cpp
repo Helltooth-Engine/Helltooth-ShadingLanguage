@@ -81,7 +81,7 @@ namespace htsl {
 		if(!tokenizer.LogIf(semiColon, ";"))
 			return "";
 
-		result += name + data + ";\n";
+		result += name + data + ";\n\n";
 
 		return true;
 	}

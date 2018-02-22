@@ -84,7 +84,7 @@ namespace htsl {
 		if(!tokenizer.LogIf(semiColon, ";"))
 			return "";
 		
-		result = token.GetData() + " DATA " + result + " " + name + ";" + "\n";
+		result = token.GetData() + " DATA " + result + " " + name + ";" + "\n\n";
 
 		return true;
 	}
