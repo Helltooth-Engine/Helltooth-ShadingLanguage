@@ -10,7 +10,7 @@
 
 int main(int argc, char* argv[]) {
 
-	std::ifstream f("res/demo2.frag");
+	std::ifstream f("res/demo4.frag");
 	
 	f.seekg(0, f.end);
 	int length = f.tellg();

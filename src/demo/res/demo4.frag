@@ -18,6 +18,8 @@ uniform {
     Texture2D diffuseTexture;
     Texture2D specularTexture;
     Texture2D normalMap;
+	Texture3D test2;
+	mat4 test;
 } as textures;
 
 main_block {
