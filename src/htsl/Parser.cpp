@@ -32,6 +32,8 @@ namespace htsl {
 	std::string Parser::ParseShader(Tokenizer& tokenizer) {
 		LayoutParser::Init();
 		InOutParser::Init();
+		UniformParser::Init();
+
 		std::string firstLine = tokenizer.GetNextLines(1);
 		ShaderType type;
 
@@ -88,6 +90,9 @@ namespace htsl {
 			else if (currentToken.GetData() == "struct") {
 				result += StructParser::Parse(currentToken, tokenizer);
 			}
+			else if (currentToken.GetData() == "uniform") {
+				result += UniformParser::Get()->Parse(currentToken, tokenizer, type);
+			}
 			//result += "\n";
 
 		}
@@ -101,6 +106,15 @@ namespace htsl {
 			break;
 		}
 
+		for (auto textureName : UniformParser::Get()->textureNames)
+			std::cout << textureName << " ";
+		std::cout << std::endl;
+
+		for (auto textureArray : UniformParser::Get()->textureArrays)
+			std::cout << textureArray << " ";
+		std::cout << std::endl;
+
+		UniformParser::End();
 		InOutParser::End();
 		LayoutParser::End();
 		return result;
