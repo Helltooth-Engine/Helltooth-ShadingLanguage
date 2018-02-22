@@ -48,8 +48,8 @@ namespace htsl {
 				isOnlyTexture = false;
 			}
 			else {
-				if (closebrace.GetData() == "Texture3D") textureBlock += "TextureCube ";
-				else textureBlock += closebrace.GetData();
+				if (closebrace.GetData() == "Texture3D") textureBlock += "samplerCube";
+				else textureBlock += "sampler2D";
 				textureBlock += " ";
 				isTexture = true;
 			}
