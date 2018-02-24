@@ -1,4 +1,4 @@
-#ifdef HT_DIRECTX
+﻿#ifdef HT_DIRECTX
 
 #include "parser/UniformParser.hpp"
 #include "parser/TypeParser.hpp"
@@ -45,8 +45,9 @@ namespace htsl {
 
 		bool isOnlyTexture = true;
 
-		int textureRegister = 0;
-
+		int textureRegisterNumber = 0;
+		std::string textureRegister = " : register(t";
+		std::string samplerRegister = " : register(s";
 		while (closebrace.GetData() != "}") {
 			//First is the type;
 
@@ -89,10 +90,12 @@ namespace htsl {
 			std::string arrayString;
 
 			Token isArray = tokenizer.PeekNextToken(); 
+			int arrayNumber = 1;
 			if (isArray.GetData() == "[") {
 				// this shit is an array yo
 				tokenizer.GetNextToken();
 				Token number = tokenizer.GetNextToken();
+				arrayNumber = std::stoi(number.GetData());
 				Token closeSquareBrace = tokenizer.GetNextToken();
 				if (!tokenizer.LogIf(closeSquareBrace, "]"))
 					return "";
@@ -105,13 +108,15 @@ namespace htsl {
 			else if (isTexture) textureNames.push_back(nameToken.GetData());
 
 			if (isTexture) {
-				textureBlock += arrayString + ";\n";
+				textureBlock += arrayString + textureRegister + std::to_string(textureRegisterNumber) + ");\n";
 				std::string samplerName = nameToken.GetData() + "Sampler";
-				textureBlock += "SamplerState " + samplerName + arrayString + ";\n";
+				textureBlock += "SamplerState " + samplerName + arrayString + samplerRegister + std::to_string(textureRegisterNumber) + ");\n";
 			}
 			else {
 				bufferData += arrayString + ";\n";
 			}
+
+			textureRegisterNumber += arrayNumber;
 
 			Token semiColon = tokenizer.GetNextToken();
 			if (!tokenizer.LogIf(semiColon, ";"))
