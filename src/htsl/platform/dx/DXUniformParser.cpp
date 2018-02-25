@@ -148,7 +148,7 @@ namespace htsl {
 
 		bufferData += ";";
 
-		result = (hasSwitch ? ("\n\n" + switchCase) : "") + textureBlock + (!isOnlyTexture ? (result + name + bufferData) : "");
+		result = (hasSwitch ? ("\n\n" + switchCase) : "") + textureBlock + (!isOnlyTexture ? (result + name + bufferData) : "") + "\n";
 		return result;
 	}
 
