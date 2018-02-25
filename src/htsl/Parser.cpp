@@ -93,6 +93,13 @@ namespace htsl {
 			else if (currentToken.GetData() == "uniform") {
 				result += UniformParser::Get()->Parse(currentToken, tokenizer, type);
 			}
+			else if (currentToken.GetData() == "main_block") {
+				// Nothing yet
+				return result;
+			}
+			else {
+				result += MethodParser::Get()->Parse(currentToken, tokenizer);
+			}
 			//result += "\n";
 
 		}
