@@ -5,24 +5,24 @@ end
 
 
 function setConfigurationFilters() 
-	filter {"configurations:OpenGL-Debug"}
+	filter {"configurations:Debug-GL"}
 		defines {
 			"HT_OPENGL",
 			"HT_DEBUG"
 		}
-	filter {"configurations:OpenGL-Release"}
+	filter {"configurations:Release-GL"}
 		defines {
 			"HT_OPENGL",
 			"HT_RELEASE"
 		}
 		optimize "Full"
    		symbols "Off"
-	filter {"configurations:DirectX-Debug"}
+	filter {"configurations:Debug-DX"}
 		defines {
 			"HT_DIRECTX",
 			"HT_DEBUG"
 		}
-	filter {"configurations:DirectX-Release"}
+	filter {"configurations:Release-DX"}
 		defines {
 			"HT_DIRECTX",
 			"HT_RELEASE"
@@ -44,10 +44,10 @@ end
 
 workspace ('Helltooth-ShadingLanguage')
 	configurations {
-		"OpenGL-Debug",
-		"OpenGL-Release",
-		"DirectX-Debug",
-		"DirectX-Release",
+		"Debug-GL",
+		"Release-GL",
+		"Debug-DX",
+		"Release-DX",
 	}
 
 	platforms {
