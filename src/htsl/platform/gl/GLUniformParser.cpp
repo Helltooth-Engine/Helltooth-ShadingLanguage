@@ -116,7 +116,7 @@ namespace htsl {
 
 		bufferData += ";";
 
-		result = textureBlock + "\n" + (!isOnlyTexture ? (result + name + bufferData) : "");
+		result = textureBlock + "\n" + (!isOnlyTexture ? (result + name + bufferData) : "") + "\n";
 		return result;
 	}
 
