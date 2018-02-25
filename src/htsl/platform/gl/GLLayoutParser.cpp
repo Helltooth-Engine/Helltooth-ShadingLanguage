@@ -63,8 +63,6 @@ namespace htsl {
 			else
 				attributes.push_back(nameorAttribName.GetData());
 
-			attributes.push_back(nameorAttribName.GetData());
-
 			// Expected semicolon
 			Token semiColon = tokenizer.GetNextToken();
 			if(!tokenizer.LogIf(semiColon, ";"))
