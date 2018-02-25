@@ -85,6 +85,9 @@ namespace htsl {
 					lastTokenIdentifier = false;
 				}
 				else {
+					if (typeParse == "sample2D") {
+						typeParse = "texture";
+					}
 					if (lastTokenIdentifier)
 						result += " " + typeParse;
 					else
