@@ -16,9 +16,9 @@ int main(int argc, char* argv[]) {
 	int length = f.tellg();
 	f.seekg(0, f.beg);
 
-	char* buffer = new char[length];
+	char* buffer = new char[length + 1];
+	memset(buffer, 0, length + 1);
 	f.read(buffer, length);
-
 	std::string result(buffer);
 
 	f.close();
