@@ -25,7 +25,7 @@ out {
 
 main_block {
 
-	SetPosition( projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0) );
+	OUT_POSITION = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
 
 	out.uv = uv;
-}
+};

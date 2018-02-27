@@ -7,5 +7,5 @@ layout {
 
 
 main_block {
-	SetPosition(vec4(position, 1.0));
-}
+	OUT_POSITION = vec4(position, 1.0);
+};

@@ -25,5 +25,4 @@ uniform {
 main_block {
     Output.color1 = sample2D(diffuseTexture, uv);
     Output.reflection = position * normals;
-    // I don't have any fucking idea what I'm writing here
 };
