@@ -69,8 +69,9 @@ namespace htsl {
 				break;
 
 			Token currentToken = tokenizer.GetNextToken();
-
-			if (currentToken.GetData() == "#") { //macro
+			if (currentToken.GetType() == TokenType::EMPTY) 
+				break;
+			else if (currentToken.GetData() == "#") { //macro
 				result += MacroParser::Parse(tokenizer, currentLine, type);
 			}
 			else if (currentToken.GetData() == "layout") { // Layout
@@ -94,14 +95,11 @@ namespace htsl {
 				result += UniformParser::Get()->Parse(currentToken, tokenizer, type);
 			}
 			else if (currentToken.GetData() == "main_block") {
-				// Nothing yet
-				return result;
+				result += MainParser::Parse(currentToken, tokenizer);
 			}
 			else {
 				result += MethodParser::Get()->Parse(currentToken, tokenizer);
 			}
-			//result += "\n";
-
 		}
 
 		switch (type) {

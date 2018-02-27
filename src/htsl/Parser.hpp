@@ -13,6 +13,7 @@
 #include "parser/StructParser.hpp"
 #include "parser/UniformParser.hpp"
 #include "parser/MethodParser.hpp"
+#include "parser/MainParser.hpp"
 
 namespace htsl {
 
