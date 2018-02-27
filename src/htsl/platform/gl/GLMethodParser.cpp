@@ -44,7 +44,7 @@ namespace htsl {
 					return "";
 				}
 #else
-				TypeParse::Parse(closeParanthesis, currentType);
+				TypeParser::Parse(closeParanthesis, currentType);
 #endif // HT_DEBUG
 
 			result += currentType;
