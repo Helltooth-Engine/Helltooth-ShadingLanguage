@@ -12,7 +12,7 @@ namespace htsl {
 				if (!LayoutParser::Get()->hasName)
 					for (auto layoutName : LayoutParser::Get()->attributes)
 						if (token.GetData() == layoutName) {
-							parseResult = LayoutParser::Get()->layoutName + "." + token.GetData();
+							parseResult = LayoutParser::Get()->layoutName + token.GetData();
 							return true;
 						}
 
@@ -22,7 +22,6 @@ namespace htsl {
 							parseResult = InOutParser::Get()->name + "." + token.GetData();
 							return true;
 						}
-
 			}
 			parseResult = token.GetData();
 			return true;
