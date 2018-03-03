@@ -9,7 +9,7 @@ namespace htsl {
 		m_Formats.push_back(TokenFormat(TokenType::IDENTIFIER, std::regex("^([a-zA-Z][a-zA-Z0-9\\-\\_]{0,30})")));
 		
 		// Float literal
-		m_Formats.push_back(TokenFormat(TokenType::FLOAT_LITERAL, std::regex("^([0-9]*\\.[0-9]*[fF]?)")));
+		m_Formats.push_back(TokenFormat(TokenType::FLOAT_LITERAL, std::regex("^([0-9].\\.[0-9]*[fF]?)")));
 		
 		// Int literal
 		m_Formats.push_back(TokenFormat(TokenType::INT_LITERAL, std::regex("^([0-9]{1,16})")));
