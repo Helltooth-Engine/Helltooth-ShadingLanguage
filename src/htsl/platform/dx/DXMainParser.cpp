@@ -8,23 +8,27 @@ namespace htsl {
 	std::string MainParser::Parse(const Token& token, Tokenizer& tokenizer, const ShaderType& type) {
 		std::string result;
 
-		std::string outStructName;
+		std::string outStructName = "outData";
 		std::string outStruct;
-		std::string inStructName;
+		std::string inStructName = "inData";
 		std::string inStruct;
 
 		if (type == ShaderType::VERTEX) {
 			outStruct = InOutParser::Get()->name;
 			inStruct = LayoutParser::Get()->layoutName;
 			result += outStruct + " main(" + inStruct + " inData) {\n";
-
+			InOutParser::Get()->name = outStructName;
+			LayoutParser::Get()->layoutName = inStructName;
 		}
 		else if (type == ShaderType::FRAGMENT) {
 			outStruct = LayoutParser::Get()->layoutName;
 			inStruct = InOutParser::Get()->name;
 			result += outStruct + " main(" + inStruct + " inData) {\n";
+			
+			LayoutParser::Get()->layoutName = outStructName;
+			InOutParser::Get()->name = inStructName;
 		}
-		
+
 		// Next expected token is a {
 
 		Token openbrace = tokenizer.GetNextToken();
@@ -32,7 +36,7 @@ namespace htsl {
 			return "";
 
 		result += "\t" + outStruct + " outData;\n";
-		outStructName = "outData";
+		
 
 		Token closebrace = tokenizer.GetNextToken();
 
@@ -54,6 +58,14 @@ namespace htsl {
 					if (dot.GetData() == ".")
 						result += outStructName;
 				}
+				else if (semiColon.GetType() == TokenType::TOKEN) {
+					if (semiColon.GetData() == "=")
+						result += " " + semiColon.GetData() + " ";
+					else if (semiColon.GetData() == ",")
+						result += semiColon.GetData() + " ";
+					else result += semiColon.GetData();
+					lastTokenIdentifier = false;
+				}
 				else if (!TypeParser::Parse(semiColon, typeParse, true)) {
 					result += semiColon.GetData();
 					lastTokenIdentifier = false;
@@ -73,12 +85,16 @@ namespace htsl {
 				}
 				semiColon = tokenizer.GetNextToken();
 			}
-			result += "\n";
+			result += ";\n";
 			closebrace = tokenizer.GetNextToken();
 		}
 
 		result += "\treturn " + outStructName + ";\n";
 		result += "}\n";
+
+		Token semiColon = tokenizer.GetNextToken();
+		if (!tokenizer.LogIf(semiColon, ";"))
+			return "";
 
 		return result;
 	}
