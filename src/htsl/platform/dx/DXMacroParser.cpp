@@ -16,21 +16,24 @@ namespace htsl {
 		if (macroName.GetData() == "htversion") {
 			// Next type after the htversion is expected to be an int literal *MUST*
 			Token versionNumber = tokenizer.GetNextToken();
-			if (!(versionNumber.GetData() == "#")) {
-				if (versionNumber.GetType() != TokenType::INT_LITERAL)
+			if ((versionNumber.GetData() == "#")) {
+				result += MacroParser::Parse(tokenizer, tokenizer.GetNextLines(1), type);
+			}
+			else {
+				if (versionNumber.GetType() != TokenType::INT_LITERAL) {
 					tokenizer.Log("[HTSL] Version can't be anything else than an int literal, '%s'", versionNumber.GetData().c_str());
+					return "";
+				}
 				// just skip it since this is directx
 				// Test if the next thing after it is a string literal
 				std::string line = tokenizer.GetNextLines(1);
 				
 				// Check if next token can be part of the version
 				Token nextToken = tokenizer.PeekNextToken();
-				if (nextToken.GetType() == TokenType::IDENTIFIER)
+				if (nextToken.GetType() == TokenType::IDENTIFIER) {
 					tokenizer.GetNextToken();
 				
-			}
-			else {
-				// Nothing since version in hlsl doesn't matter
+				}
 			}
 		}
 		else {
