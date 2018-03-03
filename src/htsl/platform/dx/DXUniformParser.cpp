@@ -53,6 +53,7 @@ namespace htsl {
 
 			bool isTexture;
 			bool isTexture3D = false;
+			bool isMat = false;
 			if (closebrace.GetData() != "Texture2D" && closebrace.GetData() != "Texture3D") {
 				std::string currentType;
 #ifdef HT_DEBUG
@@ -66,6 +67,9 @@ namespace htsl {
 				bufferData += "\t" + currentType + " ";
 				isTexture = false;
 				isOnlyTexture = false;
+			}
+			else if (closebrace.GetData() == "mat4" || closebrace.GetData() == "mat3") {
+				isMat = true;
 			}
 			else {
 				if (closebrace.GetData() == "Texture3D") {
@@ -82,6 +86,9 @@ namespace htsl {
 			Token nameToken = tokenizer.GetNextToken();
 			if (isTexture) {
 				textureBlock += nameToken.GetData();
+			}
+			else if (isMat) {
+				matrices.push_back(nameToken.GetData());
 			}
 			else {
 				names.push_back(nameToken.GetData());

@@ -20,6 +20,7 @@ namespace htsl {
 #ifdef HT_DIRECTX
 		std::vector<std::string> samplerNames; // This is done because the sampler is attribuited and bound to the texture (only DX)
 		std::vector<unsigned int> textureNumbers;
+		std::vector<std::string> matrices;
 #endif
 
 		std::string Parse(const Token& token, Tokenizer& tokenizer, const ShaderType& type);
