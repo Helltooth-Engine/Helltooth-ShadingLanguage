@@ -3,6 +3,7 @@
 #include "parser/TypeParser.hpp"
 #include "parser/LayoutParser.hpp"
 #include "parser/InOutParser.hpp"
+#include "parser/UniformParser.hpp"
 
 namespace htsl {
 
@@ -33,7 +34,12 @@ namespace htsl {
 							return true;
 						}
 				
-
+				if (!UniformParser::Get()->hasName)
+					for (auto inOutName : UniformParser::Get()->names)
+						if (token.GetData() == inOutName) {
+							parseResult = UniformParser::Get()->name + "." + token.GetData();
+							return true;
+						}
 				parseResult = token.GetData();
 
 			}
