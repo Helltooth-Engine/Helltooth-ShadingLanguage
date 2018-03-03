@@ -2,6 +2,7 @@
 #include "parser/MainParser.hpp"
 #include "parser/LayoutParser.hpp"
 #include "parser/InOutParser.hpp"
+#include "parser/UniformParser.hpp"
 
 namespace htsl {
 
@@ -59,14 +60,19 @@ namespace htsl {
 						result += outStructName;
 				}
 				else if (semiColon.GetType() == TokenType::TOKEN) {
-					if (semiColon.GetData() == "=")
+					if (semiColon.GetData() == ".") {
+						lastTokenWasDot = true;
+						result += semiColon.GetData();
+					}
+					else if (semiColon.GetData() == "=" || semiColon.GetData() == "*" || 
+						semiColon.GetData() == "+" || semiColon.GetData() == "/" || semiColon.GetData() == "-")
 						result += " " + semiColon.GetData() + " ";
 					else if (semiColon.GetData() == ",")
 						result += semiColon.GetData() + " ";
 					else result += semiColon.GetData();
 					lastTokenIdentifier = false;
 				}
-				else if (!TypeParser::Parse(semiColon, typeParse, true)) {
+				else if (!TypeParser::Parse(semiColon, typeParse, !lastTokenWasDot)) {
 					result += semiColon.GetData();
 					lastTokenIdentifier = false;
 				}
@@ -95,6 +101,10 @@ namespace htsl {
 		Token semiColon = tokenizer.GetNextToken();
 		if (!tokenizer.LogIf(semiColon, ";"))
 			return "";
+
+		for (std::string matrix : UniformParser::Get()->matrices)
+			std::cout << matrix << " ";
+		std::cout << std::endl;
 
 		return result;
 	}
