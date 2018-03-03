@@ -17,7 +17,7 @@ namespace htsl {
 			// Next type after the htversion is expected to be an int literal *MUST*
 			Token versionNumber = tokenizer.GetNextToken();
 			if ((versionNumber.GetData() == "#")) {
-				result += MacroParser::Parse(tokenizer, tokenizer.GetNextLines(1), type);
+				MacroParser::Parse(tokenizer, tokenizer.GetNextLines(1), type); // because it doesn't need to be a part of the result
 			}
 			else {
 				if (versionNumber.GetType() != TokenType::INT_LITERAL) {
