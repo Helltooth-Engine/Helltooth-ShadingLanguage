@@ -4,7 +4,7 @@
 
 namespace htsl {
 
-	std::string MainParser::Parse(const Token& token, Tokenizer& tokenizer) {
+	std::string MainParser::Parse(const Token& token, Tokenizer& tokenizer, const ShaderType& type) {
 		std::string result;
 		result += "void main() {\n";
 		Token openBrace = tokenizer.GetNextToken();

@@ -95,7 +95,7 @@ namespace htsl {
 				result += UniformParser::Get()->Parse(currentToken, tokenizer, type);
 			}
 			else if (currentToken.GetData() == "main_block") {
-				result += MainParser::Parse(currentToken, tokenizer);
+				result += MainParser::Parse(currentToken, tokenizer, type);
 			}
 			else {
 				result += MethodParser::Get()->Parse(currentToken, tokenizer);
