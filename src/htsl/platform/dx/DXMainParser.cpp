@@ -15,6 +15,11 @@ namespace htsl {
 		std::string inStruct;
 
 		if (type == ShaderType::VERTEX) {
+			if (!InOutParser::Get()->hasName) {
+				result += "struct Out {\n\tfloat4 position : SV_POSITION;\n}\n";
+				InOutParser::Get()->name = "Out";
+				InOutParser::Get()->attribNames.push_back("position");
+			}
 			outStruct = InOutParser::Get()->name;
 			inStruct = LayoutParser::Get()->layoutName;
 			result += outStruct + " main(" + inStruct + " inData) {\n";
