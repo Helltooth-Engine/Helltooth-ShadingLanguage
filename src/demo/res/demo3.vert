@@ -7,7 +7,7 @@ layout {
 	vec3 NORMAL as normals;
 };
 
-uniforms {
+uniform {
 	mat4 projectionMatrix;
 	mat4 viewMatrix;
 	mat4 modelMatrix;

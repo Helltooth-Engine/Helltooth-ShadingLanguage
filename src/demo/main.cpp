@@ -10,7 +10,7 @@
 
 int main(int argc, char* argv[]) {
 
-	std::ifstream f("res/demo4.frag");
+	std::ifstream f("res/demo1.vert");
 	
 	f.seekg(0, f.end);
 	int length = f.tellg();
@@ -34,15 +34,15 @@ int main(int argc, char* argv[]) {
 	for (int i = 0; i < shaders.size(); i++)
 		std::cout << shaders[i] << std::endl;
 
-	for (auto first : htsl::Parser::Get()->GetVertexInputLayout()) {
-		std::cout << first << " ";
-	}
-	std::cout << std::endl;
-
-	for (auto first : htsl::Parser::Get()->GetFragmentInputLayout()) {
-		std::cout << first << " ";
-	}
-	std::cout << std::endl;
+	//for (auto first : htsl::Parser::Get()->GetVertexInputLayout()) {
+	//	std::cout << first << " ";
+	//}
+	//std::cout << std::endl;
+	//
+	//for (auto first : htsl::Parser::Get()->GetFragmentInputLayout()) {
+	//	std::cout << first << " ";
+	//}
+	//std::cout << std::endl;
 
 	std::cout << "It took " << time.count() << " to parse shader(s)." << std::endl;
 	std::cin.get();
