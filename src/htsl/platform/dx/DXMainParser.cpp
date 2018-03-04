@@ -15,7 +15,7 @@ namespace htsl {
 		std::string inStruct;
 
 		if (type == ShaderType::VERTEX) {
-			if (!InOutParser::Get()->hasName) {
+			if (InOutParser::Get()->name == "") {
 				result += "struct Out {\n\tfloat4 position : SV_POSITION;\n}\n";
 				InOutParser::Get()->name = "Out";
 				InOutParser::Get()->attribNames.push_back("position");
@@ -30,7 +30,8 @@ namespace htsl {
 			outStruct = LayoutParser::Get()->layoutName;
 			inStruct = InOutParser::Get()->name;
 			result += outStruct + " main(" + inStruct + " inData) {\n";
-			
+			//result += "float4 main(" + inStruct + " inData) : SV_TARGET {\n";
+
 			LayoutParser::Get()->layoutName = outStructName;
 			InOutParser::Get()->name = inStructName;
 		}
@@ -101,8 +102,36 @@ namespace htsl {
 					lastTokenIdentifier = false;
 				}
 				else {
-					if (semiColon.GetData() == "sample2D" || semiColon.GetData() == "sample3D")
-						typeParse = "texture";
+					if (semiColon.GetData() == "sample2D" || semiColon.GetData() == "sample3D") {
+						Token openbrace = tokenizer.GetNextToken();
+						if (!tokenizer.LogIf(openbrace, "("))
+							return "";
+
+						Token textureName = tokenizer.GetNextToken();
+
+						bool isArray = false;
+						for (std::string textureArray : UniformParser::Get()->textureArrays)
+							if (textureName == textureArray) {
+								isArray = true;
+								break;
+							}
+						
+						if (isArray) {
+							typeParse = "SampleTexture" + textureName.GetData() + "(";
+							Token opensquare = tokenizer.GetNextToken();
+							std::string index = tokenizer.GetNextToken().GetData();
+							Token closesquare = tokenizer.GetNextToken();
+
+							if (!tokenizer.LogIf(opensquare, "[") && !tokenizer.LogIf(closesquare, "]"))
+								return "";
+
+							typeParse += index;
+						}
+						else {
+							typeParse = textureName.GetData() + "(" + textureName.GetData() + "Sampler";
+						}
+
+					}
 					else if (semiColon.GetData() == "OUT_POSITION")
 						typeParse = outStructName + ".position";
 					if (lastTokenIdentifier && !lastTokenWasDot)
