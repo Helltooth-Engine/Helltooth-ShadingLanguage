@@ -111,14 +111,6 @@ namespace htsl {
 			break;
 		}
 
-		for (auto textureName : UniformParser::Get()->textureNames)
-			std::cout << textureName << " ";
-		std::cout << std::endl;
-
-		for (auto textureArray : UniformParser::Get()->textureArrays)
-			std::cout << textureArray << " ";
-		std::cout << std::endl;
-
 		UniformParser::End();
 		InOutParser::End();
 		LayoutParser::End();
