@@ -89,6 +89,8 @@ namespace htsl {
 			}
 			else if (isMat) {
 				matrices.push_back(nameToken.GetData());
+				names.push_back(nameToken.GetData()); 
+				bufferData += nameToken.GetData();
 			}
 			else {
 				names.push_back(nameToken.GetData());
@@ -155,7 +157,7 @@ namespace htsl {
 
 		bufferData += ";";
 
-		result = (hasSwitch ? ("\n\n" + switchCase) : "") + textureBlock + (!isOnlyTexture ? (result + name + bufferData) : "") + "\n";
+		result = textureBlock + (hasSwitch ? ("\n\n" + switchCase) : "") +(!isOnlyTexture ? (result + name + bufferData) : "") + "\n";
 		return result;
 	}
 
