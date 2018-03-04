@@ -51,12 +51,14 @@ namespace htsl {
 
 				Token attribName = tokenizer.GetNextToken();
 				attributes.push_back(attribName.GetData());
+				nameorAttribName = attribName;
 			} else
 				attributes.push_back(nameorAttribName.GetData());
 
 			layoutData += nameorAttribName.GetData();
 
-			s_LayoutAttribNames.push_back(std::string("SV_TARGET") + std::to_string(currentAttrib));
+			if(type == ShaderType::FRAGMENT) 
+				s_LayoutAttribNames.push_back(std::string("SV_TARGET") + std::to_string(currentAttrib));
 
 			layoutData += " : " + s_LayoutAttribNames[currentAttrib++];
 
