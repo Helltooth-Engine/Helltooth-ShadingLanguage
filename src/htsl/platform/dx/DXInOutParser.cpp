@@ -21,6 +21,9 @@ namespace htsl {
 			data += "\tfloat4 position : SV_POSITION;\n";
 			out = true;
 		}
+		else {
+			data += "\tfloat4 position : SV_POSITION;\n";
+		}
 
 		Token openbrace = tokenizer.GetNextToken();
 		if(!tokenizer.LogIf(openbrace, "{"))
