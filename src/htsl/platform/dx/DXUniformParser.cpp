@@ -144,7 +144,7 @@ namespace htsl {
 
 			Token nameToken = tokenizer.GetNextToken();
 			name = nameToken.GetData();
-			as = tokenizer.GetNextToken();
+			as = tokenizer.PeekNextToken();
 			hasName = true;
 		}
 		else {
@@ -156,6 +156,8 @@ namespace htsl {
 			return "";
 
 		bufferData += ";";
+
+		tokenizer.GetNextToken();
 
 		result = textureBlock + (hasSwitch ? ("\n\n" + switchCase) : "") +(!isOnlyTexture ? (result + name + bufferData) : "") + "\n";
 		return result;
