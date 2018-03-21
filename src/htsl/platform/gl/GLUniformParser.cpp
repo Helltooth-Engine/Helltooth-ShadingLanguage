@@ -103,7 +103,7 @@ namespace htsl {
 
 			Token nameToken = tokenizer.GetNextToken();
 			name = nameToken.GetData();
-			as = tokenizer.GetNextToken();
+			as = tokenizer.PeekNextToken();
 			hasName = true;
 		}
 		else {
@@ -113,6 +113,7 @@ namespace htsl {
 
 		if (!tokenizer.LogIf(as, ";"))
 			return "";
+		tokenizer.GetNextToken();
 
 		bufferData += ";";
 
