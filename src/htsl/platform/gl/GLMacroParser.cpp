@@ -3,7 +3,6 @@
 
 namespace htsl {
 	std::vector<std::pair<std::string, std::string>> MacroParser::s_MacroValues;
-
 	
 	std::string MacroParser::Parse(Tokenizer& tokenizer, const std::string& currentLine, const ShaderType& type) {
 		std::string result;
@@ -55,4 +54,5 @@ namespace htsl {
 	}
 
 }
+
 #endif

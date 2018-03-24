@@ -1,5 +1,4 @@
 #ifdef HT_DIRECTX
-
 #include "parser/LayoutParser.hpp"
 
 namespace htsl {
@@ -104,7 +103,6 @@ namespace htsl {
 		result += layoutName + layoutData;
 		return result;
 	}
-
 
 }
 

@@ -24,7 +24,6 @@ namespace htsl {
 		std::vector<std::pair<std::string, std::string>> m_MacroValues;
 		std::vector<std::string> m_VertexShaderAttributes;
 		std::vector<std::string> m_FragmentShaderAttributes;
-		
 
 		Parser() {}
 

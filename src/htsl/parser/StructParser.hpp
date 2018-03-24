@@ -53,9 +53,5 @@ namespace htsl {
 			return result;
 		}
 
-
 	};
-
-
-
 }

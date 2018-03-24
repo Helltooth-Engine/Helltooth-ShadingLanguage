@@ -1,11 +1,9 @@
 #ifdef HT_DIRECTX
 #include "parser/InOutParser.hpp"
 
-
 namespace htsl {
 	
 	InOutParser* InOutParser::s_Instance = nullptr;
-
 
 	bool InOutParser::Parse(const Token& token, Tokenizer& tokenizer, std::string& result, const ShaderType& type) {
 		// token is either in or out, tokenizer doesn't contain this token
@@ -89,8 +87,6 @@ namespace htsl {
 		return true;
 	}
 
-
 }
-
 
 #endif // HT_DIRECTX

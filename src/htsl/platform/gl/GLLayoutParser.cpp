@@ -1,5 +1,4 @@
 #ifdef HT_OPENGL
-
 #include "parser/LayoutParser.hpp"
 
 namespace htsl {
@@ -101,14 +100,12 @@ namespace htsl {
 		if(!tokenizer.LogIf(colon, ";"))
 			return "";
 
-
 		for (std::pair<std::string, std::string> layout : layoutData) {
 			result += layout.first + layoutName + layout.second;
 		}
 
 		return result;
 	}
-
 
 }
 

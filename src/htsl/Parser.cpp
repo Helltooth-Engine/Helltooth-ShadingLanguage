@@ -1,7 +1,6 @@
 #include "Parser.hpp"
 
 namespace htsl {
-
 	Parser* Parser::s_Instance = nullptr;
 
 	std::vector<std::string> Parser::Parse(const std::string& data) {
@@ -55,7 +54,6 @@ namespace htsl {
 				goto parse;
 			}
 		}
-
 
 #ifdef HT_DEBUG
 		printf("[HTSL] Expected shading language type.\n");
@@ -116,4 +114,5 @@ namespace htsl {
 		LayoutParser::End();
 		return result;
 	}
+
 }

@@ -1,6 +1,5 @@
 #ifdef HT_OPENGL
 #include "parser/MethodParser.hpp"
-#include "parser/TypeParser.hpp"
 
 namespace htsl {
 	MethodParser* MethodParser::s_Instance = nullptr;
@@ -102,12 +101,9 @@ namespace htsl {
 
 		result += "}";
 
-
 		return result;
 	}
 
-
 }
-
 
 #endif // HT_OPENGL

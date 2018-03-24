@@ -1,6 +1,5 @@
 #ifdef HT_DIRECTX
 #include "parser/MethodParser.hpp"
-#include "parser/TypeParser.hpp"
 
 namespace htsl {
 
@@ -117,12 +116,9 @@ namespace htsl {
 
 		result += "}";
 
-
 		return result;
 	}
 
 }
-
-
 
 #endif // HT_DIRECTX

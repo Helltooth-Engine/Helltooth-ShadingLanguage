@@ -9,5 +9,4 @@ namespace htsl {
 		static bool Parse(const Token& token, std::string& parseResult, bool mainBlock = false);
 	};
 
-
 }

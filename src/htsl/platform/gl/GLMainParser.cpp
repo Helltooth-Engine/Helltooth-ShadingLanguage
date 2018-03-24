@@ -1,6 +1,5 @@
 #ifdef HT_OPENGL
 #include "parser/MainParser.hpp"
-#include "parser/LayoutParser.hpp"
 
 namespace htsl {
 
@@ -54,7 +53,6 @@ namespace htsl {
 					lastTokenWasDot = false;
 				}
 
-
 				semiColon = tokenizer.GetNextToken();
 			}
 			result += ";\n";
@@ -68,9 +66,7 @@ namespace htsl {
 
 		return result;
 	}
-
 	
 }
-
 
 #endif // HT_OPENGL

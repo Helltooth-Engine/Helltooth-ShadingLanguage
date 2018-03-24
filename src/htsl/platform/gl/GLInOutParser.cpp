@@ -89,7 +89,6 @@ namespace htsl {
 		return true;
 	}
 
-
 }
 
 #endif // HT_OPENGL

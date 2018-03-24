@@ -1,6 +1,5 @@
 #include "Tokenizer.hpp"
 
-
 namespace htsl {
 
 	Tokenizer::Tokenizer(const std::string& data)
@@ -13,7 +12,6 @@ namespace htsl {
 		
 		// Int literal
 		m_Formats.push_back(TokenFormat(TokenType::INT_LITERAL, std::regex("^([0-9]{1,16})")));
-
 		
 		// Tokens
 		for (auto token : std::vector<const char*>{ "#", "\\(", "\\)", "=", ",", "\\*", "/", "-", "\\+", "\\{", "\\}", "\\.", ";", "\\[", "\\]" }) {

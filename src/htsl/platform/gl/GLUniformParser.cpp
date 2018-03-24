@@ -1,10 +1,7 @@
 #ifdef HT_OPENGL
 #include "parser/UniformParser.hpp"
-#include "parser/TypeParser.hpp"
-
 
 namespace htsl {
-
 	UniformParser* UniformParser::s_Instance = nullptr;
 
 	std::string UniformParser::Parse(const Token& token, Tokenizer& tokenizer, const ShaderType& type) {

@@ -1,7 +1,8 @@
 #pragma once
 
-
 #include "tokenizer/Tokenizer.hpp"
+
+#include "parser/TypeParser.hpp"
 
 namespace htsl {
 
@@ -10,7 +11,6 @@ namespace htsl {
 		static MethodParser* s_Instance;
 	public:
 		std::vector<std::string> methodsWithTextures;
-
 
 		std::string Parse(const Token& token, Tokenizer& tokenizer);
 

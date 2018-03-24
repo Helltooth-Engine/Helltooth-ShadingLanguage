@@ -1,7 +1,6 @@
 ﻿#ifdef HT_DIRECTX
 
 #include "parser/UniformParser.hpp"
-#include "parser/TypeParser.hpp"
 
 namespace htsl {
 
@@ -162,9 +161,7 @@ namespace htsl {
 		result = textureBlock + (hasSwitch ? ("\n\n" + switchCase) : "") +(!isOnlyTexture ? (result + name + bufferData) : "") + "\n";
 		return result;
 	}
-
 	
 }
-
 
 #endif // HT_DIRECTX

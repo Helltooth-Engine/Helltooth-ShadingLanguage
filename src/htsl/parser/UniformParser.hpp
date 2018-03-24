@@ -3,6 +3,7 @@
 #include "tokenizer/Tokenizer.hpp"
 
 #include "parser/ShaderTypes.hpp"
+#include "parser/TypeParser.hpp"
 
 namespace htsl {
 

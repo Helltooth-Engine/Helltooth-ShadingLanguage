@@ -36,7 +36,6 @@ namespace htsl {
 		Token(TokenType type, std::string data) : m_Type(type), m_Data(data) {}
 		
 		inline TokenType GetType() const { return m_Type; }
-
 		inline std::string GetData() const { return m_Data; }
 
 		bool operator==(std::string other) const { return m_Data == other; }

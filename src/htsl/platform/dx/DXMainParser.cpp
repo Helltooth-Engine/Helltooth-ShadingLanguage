@@ -1,8 +1,5 @@
 #ifdef HT_DIRECTX
 #include "parser/MainParser.hpp"
-#include "parser/LayoutParser.hpp"
-#include "parser/InOutParser.hpp"
-#include "parser/UniformParser.hpp"
 
 namespace htsl {
 
