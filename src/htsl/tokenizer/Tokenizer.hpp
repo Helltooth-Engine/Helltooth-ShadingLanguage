@@ -16,7 +16,7 @@ namespace htsl {
 
 		std::vector<TokenFormat> m_Formats;
 
-		int m_CurrentLine = 0;
+		unsigned int m_CurrentLine = 0;
 
 		bool reachedEnd = false;
 		Token lastToken;
