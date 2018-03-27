@@ -18,7 +18,7 @@ namespace htsl {
 
 		void AddAttribNames(const Token& token, Tokenizer& tokenizer) {
 			if (token.GetType() != TokenType::IDENTIFIER)
-				tokenizer.Log("[HTSL] Unexpected token type, expected identifier as layout attribute");
+				tokenizer.Log("%s", "[HTSL] Unexpected token type, expected identifier as layout attribute");
 			s_LayoutAttribNames.push_back(token.GetData());
 		}
 
