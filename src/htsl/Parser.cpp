@@ -15,7 +15,7 @@ namespace htsl {
 			if (currentResult == "") {
 				//something went wrong
 #ifdef HT_DEBUG
-				printf("[HTSL] Could not parse shader.\n");
+				printf("%s", "[HTSL] Could not parse shader.\n");
 #endif
 				break;
 			}
@@ -56,7 +56,7 @@ namespace htsl {
 		}
 
 #ifdef HT_DEBUG
-		printf("[HTSL] Expected shading language type.\n");
+		printf("%s", "[HTSL] Expected shading language type.\n");
 #endif
 		return "";
 	parse:
@@ -79,7 +79,7 @@ namespace htsl {
 				std::string parseResult;
 #ifdef HT_DEBUG
 				if (!InOutParser::Get()->Parse(currentToken, tokenizer, parseResult, type)) {
-					tokenizer.Log("[HTSL] 'in' and 'out' are reserved keywords and should not be used for something else");
+					tokenizer.Log("%s", "[HTSL] 'in' and 'out' are reserved keywords and should not be used for something else");
 				}
 #else
 				InOutParser::Get()->Parse(currentToken, tokenizer, parseResult, type);
