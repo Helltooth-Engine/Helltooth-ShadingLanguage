@@ -11,7 +11,7 @@ namespace htsl {
 		std::string parsedType;
 #ifdef HT_DEBUG
 		if (!TypeParser::Parse(token, parsedType)) {
-			tokenizer.Log("[HTSL] Could not parse type");
+			tokenizer.Log("%s", "[HTSL] Could not parse type");
 			return "";
 		}
 #else
@@ -39,7 +39,7 @@ namespace htsl {
 			else
 #ifdef HT_DEBUG
 				if (!TypeParser::Parse(closeParanthesis, currentType)) {
-					tokenizer.Log("[HTSL] Could not parse type");
+					tokenizer.Log("%s", "[HTSL] Could not parse type");
 					return "";
 				}
 #else

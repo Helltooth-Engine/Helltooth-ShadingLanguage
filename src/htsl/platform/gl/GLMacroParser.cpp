@@ -22,7 +22,7 @@ namespace htsl {
 			else {
 #ifdef HT_DEBUG
 				if (versionNumber.GetType() != TokenType::INT_LITERAL) {
-					tokenizer.Log("[HTSL] Version can't be anything else than an int literal");
+					tokenizer.Log("%s", "[HTSL] Version can't be anything else than an int literal");
 					return "";
 				}
 #endif // HT_DEBUG
