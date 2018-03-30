@@ -32,6 +32,7 @@ namespace htsl {
 
 			if (closebrace.GetData() != "Texture2D" && closebrace.GetData() != "Texture3D") {
 				std::string currentType;
+
 #ifdef HT_DEBUG
 				if (!TypeParser::Parse(closebrace, currentType)) {
 					tokenizer.Log("%s", "[HTSL] Could not parse type.\n");
@@ -40,6 +41,7 @@ namespace htsl {
 #else
 				TypeParser::Parse(closebrace, currentType);
 #endif
+
 				bufferData += "\t" + currentType + " ";
 				isTexture = false;
 				isOnlyTexture = false;

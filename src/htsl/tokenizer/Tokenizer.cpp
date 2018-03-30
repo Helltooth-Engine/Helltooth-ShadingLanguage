@@ -4,6 +4,7 @@ namespace htsl {
 
 	Tokenizer::Tokenizer(const std::string& data)
 		: lastToken(TokenType::UNKNOWN, "") {
+
 		// Identifier
 		m_Formats.push_back(TokenFormat(TokenType::IDENTIFIER, std::regex("^([a-zA-Z][a-zA-Z0-9\\-\\_]{0,30})")));
 		

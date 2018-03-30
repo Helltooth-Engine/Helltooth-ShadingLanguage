@@ -8,10 +8,10 @@ namespace htsl {
 		// When token is not initialized
 		UNKNOWN,
 
-		// Signifyies the end of a whole file
+		// Signifies the end of a whole file
 		EMPTY,
 
-		// ( ) = , * / - + { } # . : [ ] 
+		// ( ) = , * / - + { } # . : [ ]
 		TOKEN,
 
 		// if while for switch case
@@ -40,4 +40,5 @@ namespace htsl {
 
 		bool operator==(std::string other) const { return m_Data == other; }
 	};
+
 }

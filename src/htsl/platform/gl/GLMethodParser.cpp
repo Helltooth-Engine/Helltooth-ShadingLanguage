@@ -9,6 +9,7 @@ namespace htsl {
 
 		// First token is the 
 		std::string parsedType;
+
 #ifdef HT_DEBUG
 		if (!TypeParser::Parse(token, parsedType)) {
 			tokenizer.Log("%s", "[HTSL] Could not parse type");
@@ -17,6 +18,7 @@ namespace htsl {
 #else
 		TypeParser::Parse(token, parsedType);
 #endif // HT_DEBUG
+
 		result += parsedType + " ";
 
 		Token methodNameToken = tokenizer.GetNextToken();
@@ -37,6 +39,7 @@ namespace htsl {
 			else if (closeParanthesis.GetData() == "Texture3D")
 				currentType = "samplerCube";
 			else
+
 #ifdef HT_DEBUG
 				if (!TypeParser::Parse(closeParanthesis, currentType)) {
 					tokenizer.Log("%s", "[HTSL] Could not parse type");
@@ -58,6 +61,7 @@ namespace htsl {
 				closeParanthesis = tokenizer.GetNextToken();
 			}
 		}
+
 		result += ") {\n";
 		Token openBrace = tokenizer.GetNextToken();
 		if (!tokenizer.LogIf(openBrace, "{"))

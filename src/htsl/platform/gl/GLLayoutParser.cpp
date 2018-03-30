@@ -37,6 +37,7 @@ namespace htsl {
 			Token typeToken = tokenizer.GetNextToken();
 
 			std::string parseResult;
+
 #ifdef HT_DEBUG
 			if (!TypeParser::Parse(typeToken, parseResult)) {
 				tokenizer.Log("[HTSL] Unexpected token '%s'", typeToken.GetData().c_str());

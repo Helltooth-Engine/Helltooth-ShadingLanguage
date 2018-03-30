@@ -20,6 +20,7 @@ namespace htsl {
 		else return false;
 
 		Token openBrace = tokenizer.GetNextToken();
+
 #ifdef HT_DEBUG
 		if (openBrace.GetData() != "{") {
 			tokenizer.Log("[HTSL] Unexpected token '%s', expected '{'", openBrace.GetData().c_str());
@@ -34,6 +35,7 @@ namespace htsl {
 			// close brace will be a type;
 
 			std::string currentType;
+
 #ifdef HT_DEBUG
 			if (!TypeParser::Parse(closeBrace, currentType)) {
 				tokenizer.Log("%s", "[HTSL] Could not parse type");
@@ -42,6 +44,7 @@ namespace htsl {
 #else
 			TypeParser::Parse(closeBrace, currentType);
 #endif // HT_DEBUG
+
 			result += "\t" + currentType + " ";
 
 			// INDENTIFIER NOOW

@@ -42,4 +42,5 @@ namespace htsl {
 	private:
 		std::string ParseShader(Tokenizer& tokenizer);
 	};
+
 }

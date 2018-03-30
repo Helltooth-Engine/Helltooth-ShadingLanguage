@@ -20,6 +20,7 @@ namespace htsl {
 				result += MacroParser::Parse(tokenizer, tokenizer.GetNextLines(1), type);
 			}
 			else {
+
 #ifdef HT_DEBUG
 				if (versionNumber.GetType() != TokenType::INT_LITERAL) {
 					tokenizer.Log("%s", "[HTSL] Version can't be anything else than an int literal");

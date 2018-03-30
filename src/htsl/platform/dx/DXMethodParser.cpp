@@ -9,6 +9,7 @@ namespace htsl {
 		std::string result;
 		// First token is the 
 		std::string parsedType;
+
 #ifdef HT_DEBUG
 		if (!TypeParser::Parse(token, parsedType)) {
 			tokenizer.Log("[HTSL] Could not parse type");
@@ -17,6 +18,7 @@ namespace htsl {
 #else
 		TypeParser::Parse(token, parsedType);
 #endif // HT_DEBUG
+
 		result += parsedType + " ";
 
 		Token methodNameToken = tokenizer.GetNextToken();
@@ -42,6 +44,7 @@ namespace htsl {
 				isTexture = true;
 			}
 			else
+
 #ifdef HT_DEBUG
 				if (!TypeParser::Parse(closeParanthesis, currentType)) {
 					tokenizer.Log("[HTSL] Could not parse type");

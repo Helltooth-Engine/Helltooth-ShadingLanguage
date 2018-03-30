@@ -14,9 +14,11 @@ namespace htsl {
 			std::string currentResult = ParseShader(tokenizer);
 			if (currentResult == "") {
 				//something went wrong
+
 #ifdef HT_DEBUG
 				printf("%s", "[HTSL] Could not parse shader.\n");
 #endif
+
 				break;
 			}
 			result.push_back(currentResult);
@@ -58,6 +60,7 @@ namespace htsl {
 #ifdef HT_DEBUG
 		printf("%s", "[HTSL] Expected shading language type.\n");
 #endif
+
 		return "";
 	parse:
 		while (tokenizer.HasNextToken()) {
@@ -77,6 +80,7 @@ namespace htsl {
 			}
 			else if (currentToken.GetData() == "in" || currentToken.GetData() == "out") { // In out structs
 				std::string parseResult;
+
 #ifdef HT_DEBUG
 				if (!InOutParser::Get()->Parse(currentToken, tokenizer, parseResult, type)) {
 					tokenizer.Log("%s", "[HTSL] 'in' and 'out' are reserved keywords and should not be used for something else");
@@ -84,6 +88,7 @@ namespace htsl {
 #else
 				InOutParser::Get()->Parse(currentToken, tokenizer, parseResult, type);
 #endif // HT_DEBUG
+
 				result += parseResult;
 			}
 			else if (currentToken.GetData() == "struct") {
