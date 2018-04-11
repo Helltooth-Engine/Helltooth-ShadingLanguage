@@ -49,7 +49,7 @@ namespace htsl {
 			Token semiColon = closebrace;
 			bool lastTokenIdentifier = false;
 			bool lastTokenWasDot = false;
-
+			bool fromLayout = false;
 			int closingBrackets = 0;
 
 			while (semiColon.GetData() != ";") {
@@ -59,6 +59,12 @@ namespace htsl {
 					for(std::string matricesName : UniformParser::Get()->matrices)
 						if (semiColon.GetData() == matricesName) {
 							isMatrix = true;
+							break;
+						}
+					for (std::string matricesName : LayoutParser::Get()->matrices)
+						if (semiColon.GetData() == matricesName) {
+							isMatrix = true;
+							fromLayout = true;
 							break;
 						}
 				}
@@ -89,7 +95,12 @@ namespace htsl {
 				else if (isMatrix) {
 					Token multiply = tokenizer.PeekNextToken();
 					if (multiply.GetData() == "*") {
-						result += "mul(" + semiColon.GetData() + ", ";
+						if (fromLayout) {
+							TypeParser::Parse(semiColon, typeParse, !lastTokenWasDot);
+							result += "mul(" + typeParse + ", ";
+						} else 
+							result += "mul(" + semiColon.GetData() + ", ";
+
 						closingBrackets++;
 						tokenizer.GetNextToken(); // skip *
 					}

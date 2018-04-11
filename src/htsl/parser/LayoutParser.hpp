@@ -25,6 +25,7 @@ namespace htsl {
 		std::string layoutName;
 		std::string startName;
 		std::vector<std::string> attributes;
+		std::vector<std::string> matrices;;
 		bool hasName = false;
 
 		inline std::vector<std::string> GetInputLayout() { return s_LayoutAttribNames; }

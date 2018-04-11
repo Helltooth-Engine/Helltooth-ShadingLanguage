@@ -17,7 +17,7 @@ namespace htsl {
 
 		std::string layoutData = " {\n";
 		int currentAttrib = 0;
-
+		bool isMat = false;
 		Token closebrace = tokenizer.PeekNextToken();
 		while (closebrace.GetData() != "}") {
 			layoutData += "\t";
@@ -27,7 +27,9 @@ namespace htsl {
 			Token typeToken = tokenizer.GetNextToken();
 
 			std::string parseResult;
-
+			if (typeToken.GetData() == "mat4" || typeToken.GetData() == "mat3") {
+				isMat = true;
+			}
 #ifdef HT_DEBUG
 			if (!TypeParser::Parse(typeToken, parseResult)) {
 				tokenizer.Log("[HTSL] Unexpected token '%s'", typeToken.GetData().c_str());
@@ -56,6 +58,8 @@ namespace htsl {
 				attributes.push_back(nameorAttribName.GetData());
 
 			layoutData += nameorAttribName.GetData();
+			if (isMat)
+				matrices.push_back(nameorAttribName.GetData());
 
 			if(type == ShaderType::FRAGMENT) 
 				s_LayoutAttribNames.push_back(std::string("SV_TARGET") + std::to_string(currentAttrib));

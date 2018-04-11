@@ -10,7 +10,7 @@
 
 int main(int argc, char* argv[]) {
 
-	std::ifstream f("res/demo1.vert");
+	std::ifstream f("res/demo5.vert");
 	
 	f.seekg(0, f.end);
 	int length = f.tellg();
