@@ -40,6 +40,12 @@ namespace htsl {
 
 		std::string result = "";
 		std::smatch match;
+		tokenizer.RemoveStartingSpaces(firstLine);
+
+		if (firstLine == "") {
+			firstLine = tokenizer.GetNextLines(2);
+			tokenizer.RemoveStartingSpaces(firstLine);
+		}
 
 		std::regex_search(firstLine, match, std::regex("^#htshader"));
 

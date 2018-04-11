@@ -54,12 +54,12 @@ namespace htsl {
 			return true;
 		}
 
-	private:
 		inline void RemoveStartingSpaces(std::string& data) {
 			while (data[0] == ' ' || data[0] == '\n' || data[0] == '\t')
 				data = data.substr(1);
 		}
 
+	private:
 		inline std::vector<std::string> Split(const std::string& data, char delimiter) {
 			std::vector<std::string> strings;
 			std::istringstream stream(data);
