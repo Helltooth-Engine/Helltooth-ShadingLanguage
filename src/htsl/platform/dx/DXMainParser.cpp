@@ -165,10 +165,6 @@ namespace htsl {
 		if (!tokenizer.LogIf(semiColon, ";"))
 			return "";
 
-		for (std::string matrix : UniformParser::Get()->matrices)
-			std::cout << matrix << " ";
-		std::cout << std::endl;
-
 		return result;
 	}
 
