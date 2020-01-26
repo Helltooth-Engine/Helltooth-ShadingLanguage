@@ -136,7 +136,7 @@ namespace htsl {
 							typeParse += index;
 						}
 						else {
-							typeParse = textureName.GetData() + "(" + textureName.GetData() + "Sampler";
+							typeParse = textureName.GetData() + ".sample(" + textureName.GetData() + "Sampler";
 						}
 
 					}
@@ -164,10 +164,6 @@ namespace htsl {
 		Token semiColon = tokenizer.GetNextToken();
 		if (!tokenizer.LogIf(semiColon, ";"))
 			return "";
-
-		for (std::string matrix : UniformParser::Get()->matrices)
-			std::cout << matrix << " ";
-		std::cout << std::endl;
 
 		return result;
 	}

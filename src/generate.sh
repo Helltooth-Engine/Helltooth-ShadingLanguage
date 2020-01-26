@@ -1,3 +1,3 @@
-../bin/premake5 vs2017
+../bin/premake5 vs2019
 
 cp -R demo/res ../Solution/Sandbox/
