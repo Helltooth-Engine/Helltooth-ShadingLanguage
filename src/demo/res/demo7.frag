@@ -14,5 +14,5 @@ uniform {
 };
 
 main_block {
-	Output.color = sample3D(textures, positions);
+	Output.color = sample3D(textureCube, positions);
 };
