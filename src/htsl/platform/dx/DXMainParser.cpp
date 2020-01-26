@@ -136,7 +136,7 @@ namespace htsl {
 							typeParse += index;
 						}
 						else {
-							typeParse = textureName.GetData() + "(" + textureName.GetData() + "Sampler";
+							typeParse = textureName.GetData() + ".sample(" + textureName.GetData() + "Sampler";
 						}
 
 					}
