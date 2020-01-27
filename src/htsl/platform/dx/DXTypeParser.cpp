@@ -37,7 +37,7 @@ namespace htsl {
 				if (!UniformParser::Get()->hasName)
 					for (auto inOutName : UniformParser::Get()->names)
 						if (token.GetData() == inOutName) {
-							parseResult = UniformParser::Get()->name + "." + token.GetData();
+							parseResult = token.GetData();
 							return true;
 						}
 				parseResult = token.GetData();
