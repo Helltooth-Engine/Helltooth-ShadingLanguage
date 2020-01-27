@@ -44,6 +44,11 @@ namespace htsl {
 						typeParse = "texture";
 					else if (semiColon.GetData() == "OUT_POSITION")
 						typeParse = "gl_Position";
+					else if (semiColon.GetType() == TokenType::IDENTIFIER) {
+						Token nextToken = tokenizer.PeekNextToken();
+						if (nextToken.GetType() == TokenType::IDENTIFIER)
+							result += semiColon.GetData() + " " + tokenizer.GetNextToken().GetData();
+					}
 					if (lastTokenIdentifier && !lastTokenWasDot)
 						result += " " + typeParse;
 					else

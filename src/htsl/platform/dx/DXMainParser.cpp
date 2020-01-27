@@ -142,6 +142,11 @@ namespace htsl {
 					}
 					else if (semiColon.GetData() == "OUT_POSITION")
 						typeParse = outStructName + ".position";
+					else if (semiColon.GetType() == TokenType::IDENTIFIER) {
+						Token nextToken = tokenizer.PeekNextToken();
+						if (nextToken.GetType() == TokenType::IDENTIFIER)
+							result += semiColon.GetData() + " " + tokenizer.GetNextToken().GetData();
+					}
 					if (lastTokenIdentifier && !lastTokenWasDot)
 						result += " " + typeParse;
 					else
