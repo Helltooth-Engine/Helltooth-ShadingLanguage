@@ -10,7 +10,7 @@
 
 int main(int argc, char* argv[]) {
 
-	std::ifstream f("res/demo7.frag");
+	std::ifstream f("res/demo8.vert");
 	
 	f.seekg(0, f.end);
 	int length = f.tellg();
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 
 	std::chrono::duration<double> time = std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - t1);
 	
-	for (int i = 0; i < shaders.size(); i++)
+	for (unsigned int i = 0; i < shaders.size(); i++)
 		std::cout << shaders[i] << std::endl;
 
 	//for (auto first : htsl::Parser::Get()->GetVertexInputLayout()) {
