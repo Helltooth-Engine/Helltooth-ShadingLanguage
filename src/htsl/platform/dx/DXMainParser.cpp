@@ -145,8 +145,10 @@ namespace htsl {
 						typeParse = outStructName + ".position";
 					else if (semiColon.GetType() == TokenType::IDENTIFIER) {
 						Token nextToken = tokenizer.PeekNextToken();
+						TypeParser::Parse(semiColon, typeParse, !lastTokenWasDot);
+
 						if (nextToken.GetType() == TokenType::IDENTIFIER) {
-							result += semiColon.GetData() + " " + tokenizer.GetNextToken().GetData();
+							result += typeParse + " " + tokenizer.GetNextToken().GetData();
 							doubleIdentifier = true;
 						}
 					}
