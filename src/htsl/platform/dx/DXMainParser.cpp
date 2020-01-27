@@ -53,6 +53,7 @@ namespace htsl {
 			int closingBrackets = 0;
 
 			while (semiColon.GetData() != ";") {
+				bool doubleIdentifier = false;
 				std::string typeParse;
 				bool isMatrix = false;
 				if (semiColon.GetType() == TokenType::IDENTIFIER) {
@@ -144,12 +145,14 @@ namespace htsl {
 						typeParse = outStructName + ".position";
 					else if (semiColon.GetType() == TokenType::IDENTIFIER) {
 						Token nextToken = tokenizer.PeekNextToken();
-						if (nextToken.GetType() == TokenType::IDENTIFIER)
+						if (nextToken.GetType() == TokenType::IDENTIFIER) {
 							result += semiColon.GetData() + " " + tokenizer.GetNextToken().GetData();
+							doubleIdentifier = true;
+						}
 					}
 					if (lastTokenIdentifier && !lastTokenWasDot)
 						result += " " + typeParse;
-					else
+					else if (!doubleIdentifier)
 						result += typeParse;
 					if (lastTokenWasDot)
 						lastTokenIdentifier = false;

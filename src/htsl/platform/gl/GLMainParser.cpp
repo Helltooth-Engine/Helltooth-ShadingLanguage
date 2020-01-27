@@ -18,6 +18,7 @@ namespace htsl {
 			bool lastTokenIdentifier = false;
 			bool lastTokenWasDot = false;
 			while (semiColon.GetData() != ";") {
+				bool doubleIdentifier = false;
 				std::string typeParse;
 				if (semiColon.GetData() == LayoutParser::Get()->layoutName) {
 					// Next token is expected to be a .
@@ -46,12 +47,14 @@ namespace htsl {
 						typeParse = "gl_Position";
 					else if (semiColon.GetType() == TokenType::IDENTIFIER) {
 						Token nextToken = tokenizer.PeekNextToken();
-						if (nextToken.GetType() == TokenType::IDENTIFIER)
+						if (nextToken.GetType() == TokenType::IDENTIFIER) {
 							result += semiColon.GetData() + " " + tokenizer.GetNextToken().GetData();
+							doubleIdentifier = true;
+						}
 					}
 					if (lastTokenIdentifier && !lastTokenWasDot)
 						result += " " + typeParse;
-					else
+					else if (!doubleIdentifier)
 						result += typeParse;
 					if(lastTokenWasDot)
 						lastTokenIdentifier = false;
